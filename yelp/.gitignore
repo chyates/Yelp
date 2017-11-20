@@ -24,7 +24,7 @@ _UpgradeReport_Files/
 ###############
 bin/
 obj/
-yelpProjWeek/.vscode/
+yelpProjWeek/.vscode/*
 wwwroot/lib/
 TestResults/
 ###################
