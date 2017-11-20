@@ -40,7 +40,7 @@ namespace yelp.Controllers
 
         // GET: /Home/
         [HttpGet]
-        [Route("")]
+        [Route("/review")]
         [ImportModelState]
         public IActionResult Index()
         {
