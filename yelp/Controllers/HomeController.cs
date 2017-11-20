@@ -33,15 +33,15 @@ namespace yelp.Controllers
         // Entity PostGres Code First connection
         private YelpContext _context;
 
-        public HomeController(YelpContext context)
-        {
-            // Dapper framework connections
-            // _dbConnector = connect;
-            // userFactory = new UserFactory();
+        // public HomeController(YelpContext context)
+        // {
+        //     // Dapper framework connections
+        //     // _dbConnector = connect;
+        //     // userFactory = new UserFactory();
 
-            // Entity Framework connections
-            _context = context;
-        }
+        //     // Entity Framework connections
+        //     _context = context;
+        // }
 
         // GET: /Home/
         [HttpGet]
@@ -49,7 +49,7 @@ namespace yelp.Controllers
         [ImportModelState]
         public IActionResult Index()
         {
-            return View();
+            return View("LandingPage");
         }
 
     }
