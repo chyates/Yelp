@@ -35,6 +35,12 @@ namespace yelp.Models
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
         }
+
+    }
+
+    public class BusHoursViewModel : BaseEntity
+    {
+        
     }
 
 }

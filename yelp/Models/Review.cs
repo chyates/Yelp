@@ -32,7 +32,7 @@ namespace yelp.Models
 
     public class ReviewViewModel : BaseEntity
     {
-        [Display(Name = "ReviewText")]
+        [Display(Name = "Review")]
         [Required]
         [MinLength(10)]
         [MaxLength(255)]
