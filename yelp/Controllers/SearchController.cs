@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace yelp.Controllers
 {
-    public class ReviewController : Controller
+    public class SearchController : Controller
     {
         // ########## ROUTES ##########
         //  /search/all
@@ -50,7 +50,7 @@ namespace yelp.Controllers
             }
         }
 
-        public ReviewController(YelpContext context)
+        public SearchController(YelpContext context)
         {
             // Entity Framework connections
             _context = context;
