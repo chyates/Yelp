@@ -51,6 +51,9 @@ namespace yelp.Models
         [RegularExpression(Constants.REGEX_NAMES, ErrorMessage = Constants.REGEX_NAMES_MESSAGE)]
         public string LastName { get; set; }
         [Display(Name = "Zip Code")]
+        [Required]
+        [MinLength(5)]
+        [MaxLength(10)]
         [RegularExpression(Constants.REGEX_ZIPCODE, ErrorMessage = Constants.REGEX_ZIPCODE_MESSAGE)]
         public string ZipCode { get; set; }
         [Display(Name = "Email")]
