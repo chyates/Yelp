@@ -8,6 +8,11 @@ namespace yelp.Models
         public YelpContext(DbContextOptions<YelpContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Business> Businesses { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<BusCategory> Categories { get; set; }
+        public DbSet<BusProperties> Properties { get; set; }
+        public DbSet<BusHours> Hours { get; set; }
+        public DbSet<ReviewVote> ReviewVotes { get; set; }
     }
 }
