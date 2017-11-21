@@ -60,7 +60,7 @@
     border-color: #ccc;
 }
 .btn-login {
-    background-color:#f56120;
+    background-color:var(--orange);
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -68,16 +68,16 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #f56120;
+    border-color: var(--orange);
 }
 .btn-login:hover,
 .btn-login:focus {
     color: #fff;
-    background-color: #f56120;
-    border-color: #f56120;
+    background-color: var(--orange);
+    border-color: var(--orange);
 }
 .btn-register {
-    background-color: #f56120;
+    background-color: var(--orange);
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -85,13 +85,13 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #f56120;
+    border-color: var(--orange);
 }
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
-    background-color: #f56120;
-    border-color: #f56120;
+    background-color: var(--orange);
+    border-color: var(--orange);
 }
 
 .fullscreen_bg {
@@ -145,17 +145,6 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
  */
-body {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700; }
 
 header.masthead {
   position: relative;
@@ -240,9 +229,16 @@ footer.footer {
   padding-bottom: 4rem; }
 
 /* CSS for rest of homepage */
+<<<<<<< HEAD
+#home-header {
+    background-color: var(--orange);
+    
+}
+=======
 /* #home-header {
     background-color: #f56120;  
 } */
+>>>>>>> upstream/master
 
 #header-logo {
     width: 200px;
@@ -259,4 +255,91 @@ footer.footer {
 
 #review-header {
     color: black;
+}
+
+
+.btn-orange {
+    background-color: var(--orange);
+    color: white;
+}
+
+.background-rounded {
+    background-color: var(--secondary);
+    border-color: var(--orange);
+    border-radius: 8px;
+}
+
+.text-orange {
+    color: var(--orange);
+}
+.text-lightorange {
+    color: var(--lightorange);
+}
+.text-darkorange {
+    color: var(--darkorange);
+}
+.text-purple {
+    color: var(--purple);
+}
+.text-green {
+    color: var(--green);
+}
+.text-lightblue {
+    color: var(--lightblue);
+}
+.text-yellow {
+    color: var(--yellow);
+}
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
+:root{
+    --blue:#008cba;
+    --indigo:#6610f2;
+    --purple:#6f42c1;
+    --pink:#e83e8c;
+    --red:#F04124;
+    --orange:#f56120;
+    --lightorange: #fdb797;
+    --darkorange: #F04124;
+    --yellow:#E99002;
+    --green:#43ac6a;
+    --teal:#20c997;
+    --cyan:#5bc0de;
+    --lightblue: #5bc0de;
+    --white:#fff;
+    --gray:#888;
+    --gray-dark:#333;
+    --primary:#008cba;
+    --secondary:#eee;
+    --success:#43ac6a;
+    --info:#5bc0de;
+    --warning:#E99002;
+    --danger:#F04124;
+    --light:#eee;
+    --dark:#222;
+    --breakpoint-xs:0;
+    --breakpoint-sm:576px;
+    --breakpoint-md:768px;
+    --breakpoint-lg:992px;
+    --breakpoint-xl:1200px;
+    --font-family-sans-serif:
+        "Open Sans", 
+        -apple-system, 
+        BlinkMacSystemFont, 
+        "Segoe UI", 
+        Roboto, 
+        "Helvetica Neue", 
+        Arial, 
+        sans-serif, 
+        "Apple Color Emoji", 
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    --font-family-monospace:
+        "SFMono-Regular", 
+        Menlo, 
+        Monaco, 
+        Consolas, 
+        "Liberation Mono", 
+        "Courier New", 
+        monospace
 }

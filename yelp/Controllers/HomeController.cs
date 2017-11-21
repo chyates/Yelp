@@ -78,7 +78,6 @@ namespace yelp.Controllers
             ViewBag.Businesses = allBusinesses;
             ViewBag.Locations = businessLocations;
             ViewBag.RecentReviews = allReviews;
-
             return View();
         }
 
