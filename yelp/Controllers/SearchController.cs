@@ -57,8 +57,39 @@ namespace yelp.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        
+        [HttpGet]
+        [Route("/search/city")]
+        public IActionResult InnerCitySearch()
+        {
+            List<Business> businessResults = _context.Businesses.ToList();
+            if(businessResults.Count < 1)
+            {
+                ViewBag.noResults = "No establishments were found in that city. Try again?";
+                return View();
+            }
+            else 
+            {
+                ViewBag.Results = businessResults;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("/search/category")]
+        public IActionResult InnerCatSearch()
+        {
+            List<Business> businessResults = _context.Businesses.ToList();
+            if(businessResults.Count < 1)
+            {
+                ViewBag.noResults = "No establishments were found in that category. Try again?";
+                return View();
+            }
+            else 
+            {
+                ViewBag.Results = businessResults;
+                return View();
+            }
+        }
 
     }
 }

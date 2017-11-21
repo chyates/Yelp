@@ -1,0 +1,56 @@
+<p>Welcome @ViewBag.User.FirstName! Edit your account</p>
+
+<div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Edit Profile</a>
+            </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-block">
+                <form>
+                    <input type="text" name="FirstName" placeholder="Update first name"><br><br>
+                    <input type="text" name="LastName" placeholder="Update last name"><br><br>
+                    <input type="email" name="Email" placeholder="Update email"><br><br>
+                    <input type="password" name="Password" placeholder="Update password"><br><br>
+                    <input type="password" name="ConfirmPassword" placeholder="Confirm new password"><br><br>
+                    <input type="text" name="ZipCode" placeholder="Update zip code"><br><br>
+                    <input type="submit" value="Update user information">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" role="tab" id="headingTwo">
+            <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Your Reviews</a>
+            </h5>
+        </div>
+
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="card-block">
+                <p>Review content and info</p>
+                <a href="reviews/delete">Delete?</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" role="tab" id="headingThree">
+            <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Your Bookmarks</a>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="card-block">
+                <p>Saved businesses</p>
+                <a href="/bookmarks/delete">Delete?</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<a href="/">Home</a>

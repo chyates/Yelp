@@ -56,5 +56,12 @@ namespace yelp.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Route("/review/new")]
+        public IActionResult NewReview()
+        {
+            return View();
+        }
+
     }
 }
