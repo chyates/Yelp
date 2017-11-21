@@ -1,32 +1,7 @@
 /*Write all of your CSS here*/
-.nav-tabs {
-    margin-bottom: 15px;
-}
-.sign-with {
-    margin-top: 25px;
-    padding: 20px;
-}
-div#OR {
-    height: 30px;
-    width: 30px;
-    border: 1px solid #C2C2C2;
-    border-radius: 50%;
-    font-weight: bold;
-    line-height: 28px;
-    text-align: center;
-    font-size: 12px;
-    float: right;
-    position: absolute;
-    right: -16px;
-    top: 40%;
-    z-index: 1;
-    background: #DFDFDF;
-}
 
 /* Bootstrap for login-reg form */
-/* Registration/Login Form from Bootsnipp
-Snippet by Simpy
-URL: https://bootsnipp.com/snippets/jvamD */
+
 #regContainer{
     margin-top: 3%;  
 }
@@ -85,7 +60,7 @@ URL: https://bootsnipp.com/snippets/jvamD */
     border-color: #ccc;
 }
 .btn-login {
-    background-color:#3D9DB3;
+    background-color:#f56120;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -93,16 +68,16 @@ URL: https://bootsnipp.com/snippets/jvamD */
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #2d92a9;
+    border-color: #f56120;
 }
 .btn-login:hover,
 .btn-login:focus {
     color: #fff;
-    background-color: #198da8;
-    border-color: #53A3CD;
+    background-color: #f56120;
+    border-color: #f56120;
 }
 .btn-register {
-    background-color: #17ae47;
+    background-color: #f56120;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -110,13 +85,13 @@ URL: https://bootsnipp.com/snippets/jvamD */
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #1CB94A;
+    border-color: #f56120;
 }
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
+    background-color: #f56120;
+    border-color: #f56120;
 }
 
 .fullscreen_bg {
@@ -264,3 +239,25 @@ footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem; }
 
+/* CSS for rest of homepage */
+#home-header {
+    background-color: #f56120;
+    
+}
+
+#header-logo {
+    width: 200px;
+    height: 150px;
+    opacity: 0.9;
+
+}
+
+#log-reg-button {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+    color: black;
+}
+
+#review-header {
+    color: black;
+}

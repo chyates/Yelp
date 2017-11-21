@@ -24,6 +24,7 @@ namespace yelp.Controllers
         //  /search/all
         //  /search/category={category_id}
         //  /search/category={category_id}&subcategory={subcategory_id}
+        //  /search/city={city}
         //  /search/city={city}&category={category_id}
         //  /search/city={city}&subcategory={subcategory_id}
         // ########## ROUTES ##########
@@ -55,6 +56,9 @@ namespace yelp.Controllers
             // Entity Framework connections
             _context = context;
         }
+
+        [HttpPost]
+        
 
     }
 }
