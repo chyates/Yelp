@@ -37,6 +37,15 @@ namespace yelp.Controllers
         private const string LOGGED_IN_USERNAME = "LoggedIn_Username";
         private const string LOGGED_IN_FIRSTNAME = "LoggedIn_FirstName";
 
+        private void AddLoginError()
+        {
+            // the email and password combination were not found
+            string key = "login";
+            string errorMessage = "The email and password combination you provided were not valid.";
+            ModelState.AddModelError(key, errorMessage);
+            return;
+        }
+
 
         // public HomeController(YelpContext context)
         // {
@@ -54,7 +63,7 @@ namespace yelp.Controllers
         [ImportModelState]
         public IActionResult Index()
         {
-            return View("LandingPage");
+            return View();
         }
 
 
@@ -83,7 +92,7 @@ namespace yelp.Controllers
 
                     // Entity PostGres Code First command
                     // retrieve user by submitted username
-                    User logging_user = _context.Users.SingleOrDefault(user => user.Username == userVM.loginVM.Username);
+                    User logging_user = _context.Users.SingleOrDefault(user => user.Email == userVM.loginVM.Email);
                     // salt the submitted password and hash
                     string SaltedPasswd = userVM.loginVM.Password + logging_user.Salt;
                     var Hasher = new PasswordHasher<User>();
@@ -92,7 +101,7 @@ namespace yelp.Controllers
                     {
                         // the passwords match!
                         HttpContext.Session.SetInt32(LOGGED_IN_ID, logging_user.UserId);
-                        HttpContext.Session.SetString(LOGGED_IN_USERNAME, userVM.loginVM.Username);
+                        HttpContext.Session.SetString(LOGGED_IN_USERNAME, userVM.loginVM.Email);
                         HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, logging_user.FirstName);
                         return RedirectToAction("ProfessionalProfile", "Network");
                     }
@@ -135,7 +144,7 @@ namespace yelp.Controllers
                     // User testUser = userFactory.FindByUsername(userVM.registerVM.Username);
 
                     // Entity PostGres Code First command
-                    User testUser = _context.Users.SingleOrDefault(user => user.Username == userVM.registerVM.Username);
+                    User testUser = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
                     if (testUser != null)
                     {
                         // the username currently exists in the database
@@ -202,11 +211,11 @@ namespace yelp.Controllers
                 // User NewUser = userFactory.FindByUsername(userVM.registerVM.Username);
 
                 // Entity PostGres Code First command
-                User UserFromDb = _context.Users.SingleOrDefault(user => user.Username == userVM.registerVM.Username);
+                User UserFromDb = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
 
                 // login to the application
                 HttpContext.Session.SetInt32(LOGGED_IN_ID, UserFromDb.UserId);
-                HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Username);
+                HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Email);
                 HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, UserFromDb.FirstName);
                 return RedirectToAction("ProfessionalProfile", "Network");
             }
