@@ -74,8 +74,10 @@ namespace yelp.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            List<BusCategory> Categories = _context.Categories.OrderBy(cat => cat.Category).ToList();
 
-            return View("ViewBusiness");
+            ViewBag.Categories = Categories;
+            return View("NewBusiness");
         }
 
         // POST: /biz/create

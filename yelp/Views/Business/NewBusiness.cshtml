@@ -1,0 +1,125 @@
+@model yelp.Models.BusinessViewModel
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="panel p-5">
+            <div class="panel-body">
+                <h1 class="mb-4 text-orange">Add Your Business</h1>
+                <form asp-controller="Business" asp-action="CreateBiz" method="POST">
+                    <div class="form-group">
+                        <label asp-for="Name" class="font-weight-bold">Business Name</label>
+                        <input asp-for="Name" tabindex="1" class="form-control" placeholder="Business Name" value="">
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-6 p-0">
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="font-weight-bold">Category</label>
+                                <select asp-for="CategoryId" tabindex="2" class="form-control" placeholder="Select a Category">
+                                    @{
+                                        if (ViewBag.Categories != null)
+                                        {
+                                            foreach (var category in ViewBag.Categories)
+                                            {
+                                                <option value=@category.BusCategoryId>@category.Category</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <a class="text-orange" tabindex="3" href=""><u>... or add a new category</u></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryTypeId" class="font-weight-bold">Subcategory</label>
+                                <select asp-for="CategoryTypeId" tabindex="4" class="form-control" placeholder="Select a subcategory">
+                                    @{
+                                        if (ViewBag.CategoryTypes != null)
+                                        {
+                                            foreach (var subcat in ViewBag.CategoryTypes)
+                                            {
+                                                <option value=@subcat.BusCategoryTypeId>@subcat.CategoryType</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <a class="text-orange" tabindex="5" href=""><u>... or add a new subcategory</u></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 mt-4">
+                        <div class="col-md-4 p-0">
+                            <div class="form-group">
+                                <label asp-for="Phone" class="font-weight-bold">Phone Number</label>
+                                <input asp-for="Phone" tabindex="6" class="form-control" placeholder="Phone" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="font-weight-bold">Street Address</label>
+                        <input asp-for="Address" tabindex="7" class="form-control" placeholder="Street Address" value="">
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-4 p-0">
+                            <div class="form-group">
+                                <label asp-for="City" class="font-weight-bold">City</label>
+                                <input asp-for="City" tabindex="8" class="form-control" placeholder="City" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label asp-for="State" class="font-weight-bold">State</label>
+                                <input asp-for="State" tabindex="9" class="form-control" placeholder="State (2-letters)" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="ZipCode" class="font-weight-bold">Zipcode</label>
+                                <input asp-for="ZipCode" tabindex="10" class="form-control" placeholder="Zipcode" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label asp-for="Website" class="font-weight-bold">Website</label>
+                        <input asp-for="Website" tabindex="11" class="form-control" placeholder="http://" value="">
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="background-rounded col-md-10 mx-auto p-4">
+                            <div class="form-group">
+                                <h5>Add a feature image</h5>
+                                <div class="row col-md-10 mx-auto">
+                                    <label class="btn btn-orange btn-file">Browse</label>
+                                    <label class="custom-file col-md-9">
+                                        <input type="file" id="fileup" class="custom-file-input">
+                                        <span class="custom-file-control">Select a file here ...</span>
+                                    </label>
+                                    <div id="files" class="files"></div>
+                                    <script>
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 mt-5 mb-5">
+                        <div class="form-group col-sm-6 col-md-3 mx-auto">
+                            <input type="submit" tabindex="13" class="form-control btn btn-login" value="SUBMIT">
+                        </div>
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

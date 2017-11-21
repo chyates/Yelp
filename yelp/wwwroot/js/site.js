@@ -16,4 +16,15 @@ $(document).ready(function () {
         $(this).addClass('active');
         e.preventDefault();
     });
+
+    $("#fileup").fileinput({
+        allowedFileExtensions: ["jpg", "png", "gift"]
     });
+    $("#fileup").fileupload({
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            })
+        }
+    });
+});

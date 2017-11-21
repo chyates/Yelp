@@ -57,7 +57,6 @@ namespace yelp.Controllers
             _context = context;
         }
 
-        [HttpPost]
         
 
     }
