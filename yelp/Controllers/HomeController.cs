@@ -39,9 +39,9 @@ namespace yelp.Controllers
 
         private void AddLoginError()
         {
-            // the username and password combination were not found
+            // the email and password combination were not found
             string key = "login";
-            string errorMessage = "The username and password combination you provided were not valid.";
+            string errorMessage = "The email and password combination you provided were not valid.";
             ModelState.AddModelError(key, errorMessage);
             return;
         }
@@ -70,6 +70,7 @@ namespace yelp.Controllers
             ViewBag.Businesses = allBusinesses;
             ViewBag.Locations = businessLocations;
             ViewBag.RecentReviews = allReviews;
+
             return View();
         }
 
