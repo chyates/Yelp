@@ -14,13 +14,14 @@ namespace yelp.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
+        public List<Review> Reviews { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
         // Default Constructor without parameters
         public User()
         {
-
+            Reviews = new List<Review>();
         }
         
         // Constructor based on UserRegViewModel

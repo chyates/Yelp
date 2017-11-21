@@ -63,6 +63,14 @@ namespace yelp.Controllers
         [ImportModelState]
         public IActionResult Index()
         {
+            int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
+
+            if (currentUser != null)
+            {
+                ViewBag.LogUser = currentUser;
+            }
             List<Review> allReviews = _context.Reviews.Include(r => r.user).Take(3).ToList();
             List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).Take(3).ToList();
             List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
@@ -110,7 +118,7 @@ namespace yelp.Controllers
                         HttpContext.Session.SetInt32(LOGGED_IN_ID, logging_user.UserId);
                         HttpContext.Session.SetString(LOGGED_IN_USERNAME, userVM.loginVM.Email);
                         HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, logging_user.FirstName);
-                        return RedirectToAction("ProfessionalProfile", "Network");
+                        return RedirectToAction("Index");
                     }
                     // else (password failed) -- place error in ModelState below
                     AddLoginError();
@@ -123,7 +131,7 @@ namespace yelp.Controllers
             }
             // if login was not successful, return to index with errors exported in modelstate
             TempData["login_errors"] = true;
-            return RedirectToAction("LandingPage");
+            return RedirectToAction("Index");
         }
 
         // GET: /logout
@@ -231,9 +239,25 @@ namespace yelp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Route("/users/{userId}/settings")]
+        public IActionResult UserProfile(int UserId)
+        {
+            User thisUser = _context.Users.SingleOrDefault(u => u.UserId == UserId);
+            ViewBag.User = thisUser;
+            return View();
+        }
 
+        [HttpGet]
+        [Route("/users/{userId}/profile")]
+        public IActionResult PublicProfile(int UserId)
+        {
+            User thisUser = _context.Users.SingleOrDefault(u => u.UserId == UserId);
+            List<Review> userReviews = _context.Reviews.Where(r => r.UserId == thisUser.UserId).ToList();
 
-
-
+            ViewBag.User = thisUser;
+            ViewBag.UserReviews = userReviews;
+            return View(); 
+        }
     }
 }

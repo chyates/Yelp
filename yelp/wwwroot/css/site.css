@@ -229,16 +229,22 @@ footer.footer {
   padding-bottom: 4rem; }
 
 /* CSS for rest of homepage */
+<<<<<<< HEAD
 #home-header {
     background-color: var(--orange);
     
 }
+=======
+/* #home-header {
+    background-color: #f56120;  
+} */
+>>>>>>> upstream/master
 
 #header-logo {
     width: 200px;
     height: 150px;
     opacity: 0.9;
-
+    background-color:#e9ecef;
 }
 
 #log-reg-button {

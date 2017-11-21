@@ -20,6 +20,7 @@ namespace yelp.Models
         public string Phone { get; set; }
         public string Website { get; set; }
         public string ImageLink { get; set; }
+        public List<Review> Reviews { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
@@ -28,6 +29,7 @@ namespace yelp.Models
         {
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
+            Reviews = new List<Review>();
         }
         public Business(BusinessViewModel NewBusiness)
         {
