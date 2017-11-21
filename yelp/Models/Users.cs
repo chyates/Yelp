@@ -38,6 +38,9 @@ namespace yelp.Models
 
     public class UserRegViewModel : BaseEntity
     {
+        [Key]
+        public int UserId { get; set; }
+
         [Display(Name = "First name")]
         [Required]
         [MinLength(2, ErrorMessage = "First Name must have at least 2 characters")]

@@ -47,15 +47,16 @@ namespace yelp.Controllers
         }
 
 
-        // public HomeController(YelpContext context)
-        // {
-        //     // Dapper framework connections
-        //     // _dbConnector = connect;
-        //     // userFactory = new UserFactory();
 
-        //     // Entity Framework connections
-        //     _context = context;
-        // }
+        public HomeController(YelpContext context)
+        {
+            // Dapper framework connections
+            // _dbConnector = connect;
+            // userFactory = new UserFactory();
+
+            // Entity Framework connections
+            _context = context;
+        }
 
         // GET: /Home/
         [HttpGet]
@@ -63,6 +64,13 @@ namespace yelp.Controllers
         [ImportModelState]
         public IActionResult Index()
         {
+            List<Review> allReviews = _context.Reviews.Include(r => r.user).Take(3).ToList();
+            List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).Take(3).ToList();
+            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
+
+            ViewBag.Businesses = allBusinesses;
+            ViewBag.Locations = businessLocations;
+            ViewBag.RecentReviews = allReviews;
             return View();
         }
 
@@ -116,7 +124,7 @@ namespace yelp.Controllers
             }
             // if login was not successful, return to index with errors exported in modelstate
             TempData["login_errors"] = true;
-            return RedirectToAction("Index");
+            return RedirectToAction("LandingPage");
         }
 
         // GET: /logout
@@ -152,7 +160,7 @@ namespace yelp.Controllers
                         string errorMessage = "This username already exists. Please select another or login.";
                         ModelState.AddModelError(key, errorMessage);
                         TempData["errors"] = true;
-                        return RedirectToAction("Index");
+                        return RedirectToAction("LandingPage");
                     }
                 }
                 catch
@@ -217,7 +225,7 @@ namespace yelp.Controllers
                 HttpContext.Session.SetInt32(LOGGED_IN_ID, UserFromDb.UserId);
                 HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Email);
                 HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, UserFromDb.FirstName);
-                return RedirectToAction("ProfessionalProfile", "Network");
+                return RedirectToAction("Index");
             }
             // model did not validate correctly --> show errors to user
             TempData["errors"] = true;
