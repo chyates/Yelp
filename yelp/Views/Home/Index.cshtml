@@ -20,17 +20,17 @@
     }
 <!-- Login & reg modal -->
 
-<div class="jumbotron jumbotron-fluid">
+<div id="home-header" class="jumbotron jumbotron-fluid">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6">
-                <a href="/addReview">Write a review</a>
+        <div class="row no-gutters">
+            <div class="col-5">
+                <a id="review-header" href="/addReview">Write a review</a>
             </div>
-            <div class="col-4">
-                <img src="~/img/yodelLogo.jpg"/>
+            <div class="col-5">
+                <img id="header-logo" src="~/img/yodelLogo.jpg"/>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
+                <button type="button" id="log-reg-button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
             </div>
         </div>
     </div>
@@ -38,9 +38,9 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-    <div id="regContainer" class="container">
+    <div id="regContainer" class="container-fluid">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 mx-auto">
+            <div class="col-md-12 col-md-offset-3 mx-auto">
                 <div class="panel panel-login p-3">
                     <div class="panel-heading">
                         <div class="row mx-auto">
@@ -248,11 +248,38 @@
     </form>
     <div class="row">
         <h3>Recent Businesses</h3>
+        @if(@ViewBag.Businesses != null)
+        {
+            @foreach(var business in ViewBag.Businesses)
+            {
+                <div>
+                    <p>@business.Name</p>
+                </div>
+            }
+        }
     </div>
     <div class="row">        
         <h3>Yodel by Location</h3>
+        @if(@ViewBag.Locations != null)
+        {
+            @foreach(var business in ViewBag.Locations)
+            {
+                <div>
+                    <p>@business.Name</p>
+                </div>
+            }
+        }
     </div>
     <div class="row">        
         <h3>Recent Reviews</h3>
+        @if(@ViewBag.RecentReviews != null)
+        {
+            @foreach(var review in ViewBag.RecentReviews)
+            {
+                <div>
+                    <p>@review.User.FirstName</p>
+                </div>
+            }
+        }
     </div>
 </div>

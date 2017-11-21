@@ -116,7 +116,7 @@ namespace yelp.Controllers
             }
             // if login was not successful, return to index with errors exported in modelstate
             TempData["login_errors"] = true;
-            return RedirectToAction("Index");
+            return RedirectToAction("LandingPage");
         }
 
         // GET: /logout
@@ -152,7 +152,7 @@ namespace yelp.Controllers
                         string errorMessage = "This username already exists. Please select another or login.";
                         ModelState.AddModelError(key, errorMessage);
                         TempData["errors"] = true;
-                        return RedirectToAction("Index");
+                        return RedirectToAction("LandingPage");
                     }
                 }
                 catch

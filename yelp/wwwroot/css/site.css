@@ -60,7 +60,7 @@
     border-color: #ccc;
 }
 .btn-login {
-    background-color:#3D9DB3;
+    background-color:#f56120;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -68,16 +68,16 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #2d92a9;
+    border-color: #f56120;
 }
 .btn-login:hover,
 .btn-login:focus {
     color: #fff;
-    background-color: #198da8;
-    border-color: #53A3CD;
+    background-color: #f56120;
+    border-color: #f56120;
 }
 .btn-register {
-    background-color: #17ae47;
+    background-color: #f56120;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -85,13 +85,13 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #1CB94A;
+    border-color: #f56120;
 }
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
+    background-color: #f56120;
+    border-color: #f56120;
 }
 
 .fullscreen_bg {
@@ -240,6 +240,24 @@ footer.footer {
   padding-bottom: 4rem; }
 
 /* CSS for rest of homepage */
-.jumbotron jumbotron-fluid {
+#home-header {
     background-color: #f56120;
+    
+}
+
+#header-logo {
+    width: 200px;
+    height: 150px;
+    opacity: 0.9;
+
+}
+
+#log-reg-button {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+    color: black;
+}
+
+#review-header {
+    color: black;
 }
