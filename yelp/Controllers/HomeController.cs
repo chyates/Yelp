@@ -47,15 +47,15 @@ namespace yelp.Controllers
         }
 
 
-        // public HomeController(YelpContext context)
-        // {
-        //     // Dapper framework connections
-        //     // _dbConnector = connect;
-        //     // userFactory = new UserFactory();
+        public HomeController(YelpContext context)
+        {
+            // Dapper framework connections
+            // _dbConnector = connect;
+            // userFactory = new UserFactory();
 
-        //     // Entity Framework connections
-        //     _context = context;
-        // }
+            // Entity Framework connections
+            _context = context;
+        }
 
         // GET: /Home/
         [HttpGet]
@@ -63,6 +63,13 @@ namespace yelp.Controllers
         [ImportModelState]
         public IActionResult Index()
         {
+            List<Review> allReviews = _context.Reviews.Include(r => r.user).Take(3).ToList();
+            List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).Take(3).ToList();
+            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
+
+            ViewBag.Businesses = allBusinesses;
+            ViewBag.Locations = businessLocations;
+            ViewBag.RecentReviews = allReviews;
             return View();
         }
 
@@ -217,7 +224,7 @@ namespace yelp.Controllers
                 HttpContext.Session.SetInt32(LOGGED_IN_ID, UserFromDb.UserId);
                 HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Email);
                 HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, UserFromDb.FirstName);
-                return RedirectToAction("ProfessionalProfile", "Network");
+                return RedirectToAction("Index");
             }
             // model did not validate correctly --> show errors to user
             TempData["errors"] = true;

@@ -242,7 +242,7 @@
 <!-- Rest of homepage -->
 
 <div class="container">
-    <form action="/homepageSearch" method="POST">
+    <form asp-controller="Search" asp-action="HomeSearch" method="POST">
         <input type="text" placeholder="Search by city">
         <input type="submit" value="Search">
     </form>
