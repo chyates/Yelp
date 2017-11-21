@@ -47,7 +47,6 @@ namespace yelp.Controllers
         }
 
 
-
         public HomeController(YelpContext context)
         {
             // Dapper framework connections
