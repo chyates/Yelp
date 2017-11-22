@@ -59,35 +59,49 @@ namespace yelp.Controllers
 
         [HttpGet]
         [Route("/search/city")]
-        public IActionResult InnerCitySearch(string search)
+        public IActionResult InnerCityMainSearch()
         {
-            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(search)).ToList();
-            if(businessResults.Count < 1)
-            {
-                ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return View();
-            }
-            else 
-            {
-                ViewBag.Results = businessResults;
-                return View();
-            }
+            // List<Business> businessResults = _context.Businesses..ToList();
+            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
+
+            ViewBag.Locations = businessLocations;
+            // ViewBag.Results = businessResults;
+            return View();
+
         }
 
         [HttpPost]
-        [Route("/search/city")]
+        [Route("/search/{city}")]
         public IActionResult CitySearch (string city)
         {
             List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(city)).ToList();
             if(businessResults.Count < 1)
             {
                 ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return RedirectToAction("InnerCitySearch");
+                return RedirectToAction("InnerCityMainSearch");
             }
             else 
+            {   
+               ViewBag.Results = businessResults;
+               string formatCity = city.Replace(" ", "_");
+               return RedirectToAction("InnerCitySearchResults", formatCity);
+            }
+        }
+
+        [HttpGet]
+        [Route("/search/city/{formatCity}")]
+        public IActionResult InnerCitySearchResults(string formatCity)
+        {
+            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(formatCity.Replace("_", " "))).ToList();
+            if(businessResults.Count < 1)
             {
+                ViewBag.noResults = "No establishments were found in that city. Try again?";
+                return View();
+            }
+            else 
+            {   
                 ViewBag.Results = businessResults;
-                return RedirectToAction("InnerCitySearch");
+                return View();
             }
         }
 

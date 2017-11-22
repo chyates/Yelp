@@ -57,7 +57,7 @@ namespace yelp.Controllers
         }
 
         [HttpGet]
-        [Route("/biz/{bizId}review/new")]
+        [Route("/biz/{bizId}/review/new")]
         public IActionResult NewReview(int bizId)
         {   
             if (checkLogStatus() == false)
@@ -70,6 +70,7 @@ namespace yelp.Controllers
                 User thisUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currUserId);
 
                 Business thisBiz = _context.Businesses.SingleOrDefault(b => b.BusinessId == bizId);
+                ViewBag.thisBiz = thisBiz;
                 return View();
             }
         }

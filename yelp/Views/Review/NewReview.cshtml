@@ -1,6 +1,6 @@
 @model yelp.Models.ReviewViewModel
 
-<h3>Business Name</h3>
+<h3>@ViewBag.thisBiz.Name</h3>
 <form asp-controller="Review" asp-action="CreateReview">
     <input type="checkbox" value="1" name="Rating">1
     <input type="checkbox" value="2" name="Rating">2
@@ -11,4 +11,3 @@
     <input type="submit" value="Post Review">
 </form>
 <hr>
-<a href="/">Home</a>
