@@ -11,9 +11,10 @@ using yelp.Models;
 namespace yelp.Migrations
 {
     [DbContext(typeof(YelpContext))]
-    partial class YelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171122050212_ModifiedBizPhoneType")]
+    partial class ModifiedBizPhoneType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

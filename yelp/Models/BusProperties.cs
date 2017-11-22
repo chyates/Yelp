@@ -48,4 +48,35 @@ namespace yelp.Models
         }
     }
 
+    public class BizPropertiesViewModel : BaseEntity
+    {
+        public Business Business { get; set; }
+
+        // General Properties for All Businesses
+        public bool creditcards { get; set; }
+        public bool bikeparking { get; set; }
+        public bool wheelchair { get; set; }
+        public bool kidfriendly { get; set; }
+        public bool wifi { get; set; }
+        public int price { get; set; }
+        public string parkwhere { get; set; }
+
+        // Non-Restaurant Properties
+        public bool ByApointOnly { get; set; }
+
+
+        // Restaurant Properties
+        public bool reservations { get; set; }
+        public bool delivery { get; set; }
+        public bool takeout { get; set; }
+        public bool groupfriendly { get; set; }
+        public bool alcohol { get; set; }
+        public bool outdoor { get; set; }
+        public bool waiter { get; set; }
+        public bool caters { get; set; }
+        public string goodforTimeOfDay { get; set; }
+        public string ambience { get; set; }
+
+    }
+
 }

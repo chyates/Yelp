@@ -1,0 +1,201 @@
+@model yelp.Models.BizPropertiesViewModel
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="panel p-5">
+            <div class="panel-body">
+                <h1 class="mb-4 text-orange">Tell Us More About Your Business</h1>
+                <div class="row col-md-12">
+                    <h4 class="col-md-12 p-0">Business Name: @ViewBag.Biz.Name</h4>
+                    <div class="row col-md-12">
+                        <span class="align-baseline mr-2 font-weight-bold">Category: @ViewBag.Biz.Category.Category</span>
+                        @{
+                            if (ViewBag.Biz.CategoryTypeId != null)
+                            {
+                                <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
+                            }
+                        }
+                    </div>
+                </div>
+
+
+
+                <form asp-controller="Business" asp-action="CreateBizProperties" method="POST" class="mt-5 mb-5">
+                    <div class="row col-md-12">
+                        <div class="col-md-6 p-0">
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <label asp-for="creditcards" class="form-check-label font-weight-bold">
+                                        <input asp-for="creditcards" tabindex="1" class="form-check-input">
+                                        <span class="ml-2">Accepts credit cards</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="creditcards" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="bikeparking" class="form-check-label font-weight-bold">
+                                        <input asp-for="bikeparking" tabindex="2" class="form-check-input">
+                                        <span class="ml-2">Has space for bike parking</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="bikeparking" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="wheelchair" class="form-check-label font-weight-bold">
+                                        <input asp-for="wheelchair" tabindex="3" class="form-check-input">
+                                        <span class="ml-2">Wheelchair accessible</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="wheelchair" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="kidfriendly" class="form-check-label font-weight-bold">
+                                        <input asp-for="kidfriendly" tabindex="4" class="form-check-input">
+                                        <span class="ml-2">Good for kids</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="kidfriendly" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="wifi" class="form-check-label font-weight-bold">
+                                        <input asp-for="wifi" tabindex="5" class="form-check-input">
+                                        <span class="ml-2">Has wifi</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="wifi" class="col-md-12 text-danger"></span>
+                                <div class="row col-md-10 mt-3">
+                                    <label asp-for="parkwhere" class="font-weight-bold">Where do people park?</label>
+                                    <select asp-for="parkwhere" tabindex="6" class="form-control">
+                                        <option>Parking lot</option>
+                                        <option>On the street</option>
+                                        <option>Parking limited</option>
+                                        <option>No parking provided</option>
+                                    </select>
+                                    <span asp-validation-for="parkwhere" class="col-md-12 text-danger"></span>
+                                </div>
+                                <div class="row col-md-10 mt-2">
+                                    <label asp-for="goodforTimeOfDay" class="font-weight-bold">What is the best time of day to visit your business?</label>
+                                    <select asp-for="goodforTimeOfDay" tabindex="7" class="form-control">
+                                        <option>All day</option>
+                                        <option>Morning</option>
+                                        <option>Midday</option>
+                                        <option>Late Afternoon</option>
+                                        <option>Evening</option>
+                                        <option>Late night</option>
+                                    </select>
+                                    <span asp-validation-for="goodforTimeOfDay" class="col-md-12 text-danger"></span>
+                                </div>
+                                <div class="row col-md-10 mt-2">
+                                    <label asp-for="price" class="font-weight-bold">What is your market price range?</label>
+                                    <select asp-for="price" tabindex="8" class="form-control">
+                                        <option value=1>$</option>
+                                        <option value=2>$$</option>
+                                        <option value=3>$$$</option>
+                                        <option value=4>$$$$</option>
+                                    </select>
+                                    <span asp-validation-for="price" class="col-md-12 text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 p-0">
+                            <!-- Non-Restaurant Specific -->
+                            <h6 class="mb-4"><u>Other Properties</u></h6>
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <label asp-for="ByApointOnly" class="form-check-label font-weight-bold">
+                                        <input asp-for="ByApointOnly" tabindex="9" class="form-check-input">
+                                        <span class="ml-2">Services by appointment only</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="ByApointOnly" class="col-md-12 text-danger"></span>
+                            </div>
+
+                            <!-- Restaurant Specific -->
+                            <h6 class="mb-4"><u>Restaurant and Bar-Specific Properties</u></h6>
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <label asp-for="reservations" class="form-check-label font-weight-bold">
+                                        <input asp-for="reservations" tabindex="9" class="form-check-input">
+                                        <span class="ml-2">Accepts reservations</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="reservations" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="delivery" class="form-check-label font-weight-bold">
+                                        <input asp-for="delivery" tabindex="10" class="form-check-input">
+                                        <span class="ml-2">Delivery service</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="delivery" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="takeout" class="form-check-label font-weight-bold">
+                                        <input asp-for="takeout" tabindex="11" class="form-check-input">
+                                        <span class="ml-2">Takeout</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="takeout" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="groupfriendly" class="form-check-label font-weight-bold">
+                                        <input asp-for="groupfriendly" tabindex="12" class="form-check-input">
+                                        <span class="ml-2">Good for groups</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="groupfriendly" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="alcohol" class="form-check-label font-weight-bold">
+                                        <input asp-for="alcohol" tabindex="13" class="form-check-input">
+                                        <span class="ml-2">Serves alcohol</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="alcohol" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="outdoor" class="form-check-label font-weight-bold">
+                                        <input asp-for="outdoor" tabindex="14" class="form-check-input">
+                                        <span class="ml-2">Provides outdoor seating</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="outdoor" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="waiter" class="form-check-label font-weight-bold">
+                                        <input asp-for="waiter" tabindex="15" class="form-check-input">
+                                        <span class="ml-2">Provides waiter service</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="waiter" class="col-md-12 text-danger"></span>
+                                <div class="row">
+                                    <label asp-for="caters" class="form-check-label font-weight-bold">
+                                        <input asp-for="caters" tabindex="16" class="form-check-input">
+                                        <span class="ml-2">Catering offered</span>
+                                    </label>
+                                </div>
+                                <span asp-validation-for="caters" class="col-md-12 text-danger"></span>
+                                <div class="row col-md-10 mt-2">
+                                    <label asp-for="ambience" class="font-weight-bold">How would you describe the ambience?</label>
+                                    <select asp-for="ambience" tabindex="17" class="form-control" multiple>
+                                        <option>Casual</option>
+                                        <option>Formal</option>
+                                        <option>Intimate</option>
+                                        <option>Loud</option>
+                                        <option>Quiet</option>
+                                        <option>Trendy</option>
+                                        <option>Upscale</option>
+                                    </select>
+                                    <span><small><em>Use the ctrl key to select multiple values</em></small></span>
+                                    <span asp-validation-for="ambience" class="col-md-12 text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 mt-5 mb-5">
+                        <div class="form-group col-sm-6 col-md-3 mx-auto">
+                            <input type="submit" tabindex="18" class="form-control btn btn-login" value="SUBMIT">
+                        </div>
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

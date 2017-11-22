@@ -11,9 +11,10 @@ using yelp.Models;
 namespace yelp.Migrations
 {
     [DbContext(typeof(YelpContext))]
-    partial class YelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171121231434_OneToOneBizProps")]
+    partial class OneToOneBizProps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +132,7 @@ namespace yelp.Migrations
 
                     b.Property<string>("Website");
 
-                    b.Property<string>("ZipCode");
+                    b.Property<int>("ZipCode");
 
                     b.HasKey("BusinessId");
 
@@ -320,7 +321,7 @@ namespace yelp.Migrations
             modelBuilder.Entity("yelp.Models.BusCategoryType", b =>
                 {
                     b.HasOne("yelp.Models.BusCategory", "Category")
-                        .WithMany("CategoryTypes")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -336,12 +337,12 @@ namespace yelp.Migrations
             modelBuilder.Entity("yelp.Models.Business", b =>
                 {
                     b.HasOne("yelp.Models.BusCategory", "Category")
-                        .WithMany("Businesses")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("yelp.Models.BusCategoryType", "CategoryType")
-                        .WithMany("Businesses")
+                        .WithMany()
                         .HasForeignKey("CategoryTypeId");
                 });
 
