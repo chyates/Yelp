@@ -1,4 +1,7 @@
 @model yelp.Models.BizPropertiesViewModel
+@{
+    ViewData["Title"] = "Yodel | Add Properties to @ViewBag.Biz.Name"; 
+}
 
 <div class="row">
     <div class="col-md-12 mx-auto">
@@ -62,22 +65,22 @@
                                 <div class="row col-md-10 mt-3">
                                     <label asp-for="parkwhere" class="font-weight-bold">Where do people park?</label>
                                     <select asp-for="parkwhere" tabindex="6" class="form-control">
-                                        <option>Parking lot</option>
-                                        <option>On the street</option>
-                                        <option>Parking limited</option>
-                                        <option>No parking provided</option>
+                                        <option value="Parking lot">Parking lot</option>
+                                        <option value="On the street">On the street</option>
+                                        <option value="Parking limited">Parking limited</option>
+                                        <option value="No parking provided">No parking provided</option>
                                     </select>
                                     <span asp-validation-for="parkwhere" class="col-md-12 text-danger"></span>
                                 </div>
                                 <div class="row col-md-10 mt-2">
                                     <label asp-for="goodforTimeOfDay" class="font-weight-bold">What is the best time of day to visit your business?</label>
                                     <select asp-for="goodforTimeOfDay" tabindex="7" class="form-control">
-                                        <option>All day</option>
-                                        <option>Morning</option>
-                                        <option>Midday</option>
-                                        <option>Late Afternoon</option>
-                                        <option>Evening</option>
-                                        <option>Late night</option>
+                                        <option value="All day">All day</option>
+                                        <option value="Morning">Morning</option>
+                                        <option value="Midday">Midday</option>
+                                        <option value="Late Afternoon">Late Afternoon</option>
+                                        <option value="Evening">Evening</option>
+                                        <option value="Late night">Late night</option>
                                     </select>
                                     <span asp-validation-for="goodforTimeOfDay" class="col-md-12 text-danger"></span>
                                 </div>
@@ -169,15 +172,16 @@
                                 <span asp-validation-for="caters" class="col-md-12 text-danger"></span>
                                 <div class="row col-md-10 mt-2">
                                     <label asp-for="ambience" class="font-weight-bold">How would you describe the ambience?</label>
-                                    <select asp-for="ambience" tabindex="17" class="form-control" multiple>
-                                        <option>Casual</option>
-                                        <option>Formal</option>
-                                        <option>Intimate</option>
-                                        <option>Loud</option>
-                                        <option>Quiet</option>
-                                        <option>Trendy</option>
-                                        <option>Upscale</option>
+                                    <select id="multiSelect" tabindex="17" class="form-control" multiple>
+                                        <option value="Casual">Casual</option>
+                                        <option value="Formal">Formal</option>
+                                        <option value="Intimate">Intimate</option>
+                                        <option value="Loud">Loud</option>
+                                        <option value="Quiet">Quiet</option>
+                                        <option value="Trendy">Trendy</option>
+                                        <option value="Upscale">Upscale</option>
                                     </select>
+                                    <input asp-for="ambience" id="result" type="hidden" class="form-control">
                                     <span><small><em>Use the ctrl key to select multiple values</em></small></span>
                                     <span asp-validation-for="ambience" class="col-md-12 text-danger"></span>
                                 </div>

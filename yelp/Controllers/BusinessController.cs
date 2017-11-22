@@ -81,6 +81,15 @@ namespace yelp.Controllers
             return;
         }
 
+        private void AddBusPropsError(int BizId)
+        {
+            // the business already has a 1:1 properties relationship
+            string key = "creditcards";
+            string errorMessage = "This business already has a set of business properties assigned. Reference URL: localhost/biz/" + BizId;
+            ModelState.AddModelError(key, errorMessage);
+            return;
+        }
+
         private void AddBusinessImgError()
         {
             // the business image name is not in a proper format
@@ -298,6 +307,7 @@ namespace yelp.Controllers
                 .Where(biz => biz.BusinessId == biz_id)
                 .Include(biz => biz.Category)
                 .Include(biz => biz.CategoryType)
+                .Include(biz => biz.BusinessProperty)
                 .SingleOrDefault();
             ViewBag.Biz = CurrBiz;
             return View();
@@ -308,16 +318,41 @@ namespace yelp.Controllers
         [Route("/biz/{biz_id}/bizProps/create")]
         [ExportModelState]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateBizProperties(int biz_id)
+        public IActionResult CreateBizProperties(BizPropertiesViewModel BizPropsVM, int biz_id)
         {
             if (checkLogStatus() == false)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            // Validate Model 
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                // Confirm the business does not already have a 1:1 properties record
+                try
+                {
+                    BusProperties CheckProperties = _context.Properties.SingleOrDefault(biz => biz.BusinessId == biz_id);
+                    if (CheckProperties != null)
+                    {
+                        // the business already has an existing properties record; throw an error
+                        AddBusPropsError(biz_id);
+                        return RedirectToAction("NewBizProperties");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // there were not any existing businesses with the same name
+                    // proceed with code
+                }
+                BusProperties newBizProperty = new BusProperties(BizPropsVM);
+                newBizProperty.BusinessId = biz_id;
+                _context.Properties.Add(newBizProperty);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return RedirectToAction("NewBizProperties");
+            }
+            return RedirectToAction("ViewBiz", biz_id);
         }
 
         // GET: /biz/{biz_id}
@@ -334,8 +369,8 @@ namespace yelp.Controllers
                 .Where(biz => biz.BusinessId == biz_id)
                 .Include(biz => biz.Category)
                 .Include(biz => biz.CategoryType)
+                .Include(biz => biz.BusinessProperty)
                 .SingleOrDefault();
-
 
             ViewBag.Biz = CurrBiz;
             return View("ViewBusiness");
@@ -346,15 +381,11 @@ namespace yelp.Controllers
 
 
         // ########## ROUTES ##########
-        //  /biz/new
-        //  /biz/create
         //  /biz/{biz_id}
         //  /biz/{biz_id}/edit
         //  /biz/{biz_id}/update
         //  /biz/{biz_id}/delete
         //  /biz/{biz_id}/destroy
-        //  /biz/cat/create
-        //  /biz/subcat/create
         //  /biz/{biz_id}/biz_photos
         //  /biz/{biz_id}/biz_photos/upload
         //  /biz/{biz_id}/biz_photos/destroy
