@@ -1,19 +1,40 @@
-<p>Made it to inner city search</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="panel p-3">
+                <div class="panel-body">
+                    <form asp-controller="Search" asp-action="CitySearch" method="POST">
+                        <div class="row col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <select tabindex="2" class="form-control" name="city">
+                                                <option value="example">Example</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md">
+                                            <input type="submit" tabindex="13" class="form-control btn btn-outline-primary" value="Filter results">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<form asp-controller="Search" asp-action="CitySearch" method="POST">
-    <select name="city">
-        <option value="example">Example</option>
-    </select>
-    <input type="submit" value="Filter results">
-</form>
-<h3>Results</h3>
+    <h3>Results</h3>
 
-@if(ViewBag.noResults != null)
-{
-    <p>@ViewBag.noResults</p>
-}
-<form>
-    <input type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
-</form>
-<hr>
-<a href="/">Home</a>
+    @if(ViewBag.noResults != null)
+    {
+        <p>@ViewBag.noResults</p>
+    }
+    <form>
+        <input type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
+    </form>
+    <hr>
+    <a href="/">Home</a>
+</div>

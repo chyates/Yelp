@@ -19,24 +19,6 @@
         valPassword = ViewBag.errors["registerVM.Password"].RawValue;
     }
 <!-- Login & reg modal -->
-
-<div id="home-header" class="jumbotron jumbotron-fluid">
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-5">
-                <form>
-                    <input id="header-write-button" class="btn btn-primary" type="submit" asp-action="NewReview" asp-controller="Review" value="Write a Review">
-                </form>
-            </div>
-            <div class="col-5">
-                <img id="header-logo" src="~/img/yodelLogo2.jpg"/>
-            </div>
-            <div class="col-2">
-                <button type="button" id="log-reg-button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -243,27 +225,29 @@
 
 <!-- Rest of homepage -->
 
-<div class="container">
+<div id="index-container" class="container-fluid">
     @if(ViewBag.LogUser != null)
     {
         <div class="row">
-            <h2 class="mb-4 text-darkorange">Welcome, @ViewBag.LogUser.FirstName!</h2>
+            <!-- <div class="col-md-10 p-0">
+                <h3 class="mb-4 text-darkorange">Welcome</h3>
+            </div> -->
+            <div class="col-md-2">
+                <form>
+                    <input class="btn btn-outline-primary" id="header-city-search" type="submit" asp-action="InnerCitySearch" asp-controller="Search" value="Search by City">
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form>
+                    <input type="submit" class="btn btn-outline-primary" id="header-cat-search" asp-action="InnerCatSearch" asp-controller="Search" value="Search by Category">
+                </form>
+            </div>
+            <div class="col-md-8 text-right">
+                <p class="float-right"><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/settings">Edit profile</a> | <a class="text-pink" href="/users/@ViewBag.LogUser.UserId/profile">View Profile</a></p>
+            </div>
         </div>
-            <li><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/settings">Edit profile</a></li>
-            <li><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/profile">View Profile</a></li>
     }
-    <div class="row">
-            <div class="col-md-6 p-0">
-        <form>
-                <input class="btn btn-primary" id="header-city-search" type="submit" asp-action="InnerCitySearch" asp-controller="Search" value="Search by City">
-        </form>
-            </div>
-            <div class="col-md-6 p-0">
-        <form>
-                <input type="submit" class="btn btn-primary" id="header-cat-search" asp-action="InnerCatSearch" asp-controller="Search" value="Search by Category">
-        </form>
-            </div>
-    </div>
+
     <div class="row">
         <h3>Recent Businesses</h3>
         @if(@ViewBag.Businesses != null)
