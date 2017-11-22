@@ -36,6 +36,7 @@ namespace yelp.Models
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
             Reviews = new List<Review>();
+            BusinessProperty = new BusProperties();
         }
         public Business(BusinessViewModel NewBusiness)
         {
@@ -62,6 +63,7 @@ namespace yelp.Models
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
             this.Reviews = new List<Review>();
+            this.BusinessProperty = new BusProperties();
         }
     }
 

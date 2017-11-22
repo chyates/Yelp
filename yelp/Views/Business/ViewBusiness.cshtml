@@ -1,4 +1,22 @@
+@{
+    ViewData["Title"] = "Yodel | @ViewBag.Biz.Name"; 
+}
+
 <div class="row">
-    <h1>Business</h1>
-    <h4>Rating</h4>
+    <div class="col-md-12 mx-auto">
+        <div class="panel p-5">
+            <div class="panel-body">
+                <h1 class="mb-4 text-orange">Business Name: @ViewBag.Biz.Name</h1>
+                <div class="row col-md-12">
+                    <span class="align-baseline mr-2 font-weight-bold">Category: @ViewBag.Biz.Category.Category</span>
+                    @{
+                        if (ViewBag.Biz.CategoryTypeId != null)
+                        {
+                            <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

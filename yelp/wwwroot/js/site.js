@@ -48,4 +48,11 @@ $(document).ready(function () {
         $("<p class='mt-2'><span class='font-weight-bold'>Selected File:</span>  " + filename_new + "</p>").appendTo('#files');
         readURL(this);
     });
+
+    $("#multiSelect").click(function () {
+        var multiSelect = $.map($("#multiSelect option:selected"), function (el, i) {
+            return $(el).text();
+        });
+        $("#result").val(multiSelect.join(", "));
+    });
 });
