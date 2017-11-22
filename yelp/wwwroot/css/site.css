@@ -229,16 +229,10 @@ footer.footer {
   padding-bottom: 4rem; }
 
 /* CSS for rest of homepage */
-<<<<<<< HEAD
 #home-header {
-    background-color: var(--orange);
-    
+    background-color: white;
 }
-=======
-/* #home-header {
-    background-color: #f56120;  
-} */
->>>>>>> upstream/master
+
 
 #header-logo {
     width: 200px;
@@ -251,6 +245,23 @@ footer.footer {
     background-color: #d3d3d3;
     border-color: #d3d3d3;
     color: black;
+}
+
+#header-write-button {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+    color: black;
+}
+#header-city-search {
+    background-color: var(--purple);
+    border-color: var(--purple);
+    color: white;
+}
+
+#header-cat-search {
+    background-color: var(--purple);
+    border-color: var(--purple);
+    color: white;
 }
 
 #review-header {
@@ -290,22 +301,25 @@ footer.footer {
 .text-yellow {
     color: var(--yellow);
 }
+.text-pink {
+    color: var(--pink);
+}
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 :root{
     --blue:#008cba;
     --indigo:#6610f2;
-    --purple:#6f42c1;
-    --pink:#e83e8c;
+    --purple:#4a2156;
+    --pink:#bc2731;
     --red:#F04124;
     --orange:#f56120;
     --lightorange: #fdb797;
     --darkorange: #F04124;
-    --yellow:#E99002;
-    --green:#43ac6a;
+    --yellow:#f5f0ae;
+    --green:#3c6e2e;
     --teal:#20c997;
     --cyan:#5bc0de;
-    --lightblue: #5bc0de;
+    --lightblue: #e4f3f5;
     --white:#fff;
     --gray:#888;
     --gray-dark:#333;

@@ -25,11 +25,11 @@
         <div class="row no-gutters">
             <div class="col-5">
                 <form>
-                    <input type="submit" asp-action="NewReview" asp-controller="Review" value="Write a Review">
+                    <input id="header-write-button" class="btn btn-primary" type="submit" asp-action="NewReview" asp-controller="Review" value="Write a Review">
                 </form>
             </div>
             <div class="col-5">
-                <img id="header-logo" src="~/img/revisedLogo.jpg"/>
+                <img id="header-logo" src="~/img/yodelLogo2.jpg"/>
             </div>
             <div class="col-2">
                 <button type="button" id="log-reg-button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
@@ -246,15 +246,24 @@
 <div class="container">
     @if(ViewBag.LogUser != null)
     {
-        <p>Welcome, @ViewBag.LogUser.FirstName!</p>
-        <p><a href="/users/@ViewBag.LogUser.UserId/settings">Edit profile</a> | <a href="/users/@ViewBag.LogUser.UserId/profile">View Profile</a></p>
+        <div class="row">
+            <h2 class="mb-4 text-darkorange">Welcome, @ViewBag.LogUser.FirstName!</h2>
+        </div>
+            <li><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/settings">Edit profile</a></li>
+            <li><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/profile">View Profile</a></li>
     }
-    <form>
-        <input type="submit" asp-action="InnerCitySearch" asp-controller="Search" value="Search by City">
-    </form>
-    <form>
-        <input type="submit" asp-action="InnerCatSearch" asp-controller="Search" value="Search by Category">
-    </form>
+    <div class="row">
+            <div class="col-md-6 p-0">
+        <form>
+                <input class="btn btn-primary" id="header-city-search" type="submit" asp-action="InnerCitySearch" asp-controller="Search" value="Search by City">
+        </form>
+            </div>
+            <div class="col-md-6 p-0">
+        <form>
+                <input type="submit" class="btn btn-primary" id="header-cat-search" asp-action="InnerCatSearch" asp-controller="Search" value="Search by Category">
+        </form>
+            </div>
+    </div>
     <div class="row">
         <h3>Recent Businesses</h3>
         @if(@ViewBag.Businesses != null)

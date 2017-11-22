@@ -1,16 +1,19 @@
 <p>Made it to inner city search</p>
 
-<form>
+<form asp-controller="Search" asp-action="CitySearch" method="POST">
     <select name="city">
         <option value="example">Example</option>
     </select>
     <input type="submit" value="Filter results">
 </form>
-<hr>
 <h3>Results</h3>
 
 @if(ViewBag.noResults != null)
 {
     <p>@ViewBag.noResults</p>
 }
+<form>
+    <input type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
+</form>
+<hr>
 <a href="/">Home</a>
