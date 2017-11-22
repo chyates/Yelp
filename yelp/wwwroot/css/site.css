@@ -235,7 +235,6 @@ footer.footer {
     /* margin-left: 12rem; */
 }
 
-
 #header-logo {
     width: 200px;
     height: 150px;
@@ -271,11 +270,13 @@ footer.footer {
 }
 
 
+.upload_img {
+    width: 100%;
+}
 .btn-orange {
     background-color: var(--orange);
     color: white;
 }
-
 .background-rounded {
     background-color: var(--secondary);
     border-color: var(--orange);

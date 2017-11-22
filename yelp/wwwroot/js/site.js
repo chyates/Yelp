@@ -17,14 +17,35 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $("#fileup").fileinput({
-        allowedFileExtensions: ["jpg", "png", "gift"]
-    });
-    $("#fileup").fileupload({
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo('#files');
-            })
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#upload_img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    $("#fileup input").click(function() {
+        this.value = "";
+        $("#files").children().remove();
+        $('#upload_img').attr("src", "");
+    });
+    $("#fileup input").change(function() {
+        var filename = this.value;
+        var ext = filename.split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'bmp']) == -1) {
+            alert('You have selected an invalid extension!');
+            this.value = "";
+            $("#files").children().remove();
+            $('#upload_img').attr("src", "");
+            return;
+        }
+        filename_new = filename.replace("C:\u005cfakepath", "");
+        $("#files").children().remove();
+        $("<p class='mt-2'><span class='font-weight-bold'>Selected File:</span>  " + filename_new + "</p>").appendTo('#files');
+        readURL(this);
     });
 });

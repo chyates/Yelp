@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 
 namespace yelp.Models
@@ -16,13 +18,17 @@ namespace yelp.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int ZipCode { get; set; }
+        public string ZipCode { get; set; }
         public string Phone { get; set; }
         public string Website { get; set; }
         public string ImageLink { get; set; }
         public List<Review> Reviews { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        [InverseProperty("Business")]
+        public BusProperties BusinessProperty { get; set; }
+
 
         // Default Constructor without parameters
         public Business()
@@ -34,8 +40,28 @@ namespace yelp.Models
         public Business(BusinessViewModel NewBusiness)
         {
             this.Name = NewBusiness.Name;
+            this.CategoryId = NewBusiness.CategoryId;
+            this.CategoryTypeId = NewBusiness.CategoryTypeId;
+            this.Address = NewBusiness.Address;
+            this.City = NewBusiness.City;
+            this.State = NewBusiness.State;
+            this.ZipCode = NewBusiness.ZipCode;
+
+            string _phone = NewBusiness.Phone;
+            _phone = _phone.Replace("(", "");
+            _phone = _phone.Replace(")", "");
+            _phone = _phone.Replace("-", "");
+            _phone = _phone.Replace(" ", "");
+            if (_phone[0] == '1')
+            {
+                _phone = _phone.Substring(1);
+            }
+            _phone = "(" + _phone.Substring(0,3) + ") " + _phone.Substring(3, 3) + "-" + _phone.Substring(6);
+            this.Phone = _phone;
+            this.Website = NewBusiness.Website;
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
+            this.Reviews = new List<Review>();
         }
     }
 
@@ -82,7 +108,7 @@ namespace yelp.Models
         [MinLength(5)]
         [MaxLength(10)]
         [RegularExpression(Constants.REGEX_ZIPCODE, ErrorMessage = Constants.REGEX_ZIPCODE_MESSAGE)]
-        public int ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         [Display(Name = "Phone")]
         [Required]
@@ -95,13 +121,29 @@ namespace yelp.Models
         [MaxLength(255)]
         [RegularExpression(Constants.REGEX_ALL_EXCEPT_SENSITIVE, ErrorMessage = Constants.REGEX_ALL_MESSAGE)]
         public string Website { get; set; }
+    }
 
-        [Display(Name = "Link")]
+    public class BizImageLinkImportModel : BaseEntity
+    {
+        [Display(Name = "File Name")]
         [Required]
         [MinLength(2)]
-        [MaxLength(255)]
+        [MaxLength(251)]
         [RegularExpression(Constants.REGEX_ALL_EXCEPT_SENSITIVE, ErrorMessage = Constants.REGEX_ALL_MESSAGE)]
-        public string ImageLink { get; set; }
+        public string FileName { get; set; }
 
+        [Display(Name = "Extension")]
+        [Required]
+        [MinLength(2)]
+        [MaxLength(4)]
+        [RegularExpression(Constants.REGEX_IMG_EXT, ErrorMessage = Constants.REGEX_IMG_EXT_MESSAGE)]
+        public string FileExtension { get; set; }
+    }
+
+    public class NewBizViewModel : BaseEntity
+    {
+        public BusinessViewModel BizVM { get; set; }
+        public BusCategoryViewModel CategoryVM { get; set; }
+        public BusCategoryTypeViewModel CategoryTypeVM { get; set; }
     }
 }

@@ -12,11 +12,16 @@ namespace yelp.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        public List<Business> Businesses { get; set; }
+        public List<BusCategoryType> CategoryTypes { get; set; }
+
         // Default Constructor without parameters
         public BusCategory()
         {
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
+            this.Businesses = new List<Business>();
+            this.CategoryTypes = new List<BusCategoryType>();
         }
     }
 
