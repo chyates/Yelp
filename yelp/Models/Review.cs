@@ -10,6 +10,8 @@ namespace yelp.Models
         public int ReviewId { get; set; }
         public int UserId { get; set; }
         public User user { get; set; }
+        public int BusinessId { get; set; }
+        public Business Business { get; set; }
         public int Rating { get; set; }
         public string ReviewText { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -57,11 +57,55 @@ namespace yelp.Controllers
         }
 
         [HttpGet]
-        [Route("/review/new")]
-        public IActionResult NewReview()
-        {
-            return View();
+        [Route("/biz/{bizId}review/new")]
+        public IActionResult NewReview(int bizId)
+        {   
+            if (checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                int? currUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+                User thisUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currUserId);
+
+                Business thisBiz = _context.Businesses.SingleOrDefault(b => b.BusinessId == bizId);
+                return View();
+            }
         }
 
+        [HttpPost]
+        [Route("/biz/{bizId}/review/create")]
+        public IActionResult CreateReview (ReviewViewModel model, int bizId)
+        {
+            if (checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                int? currUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+                User thisUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currUserId);
+                Business thisBiz = _context.Businesses.SingleOrDefault(b => b.BusinessId == bizId);
+                if (ModelState.IsValid)
+                {
+                    Review newReview = new Review 
+                    {
+                        UserId = thisUser.UserId,
+                        user = thisUser,
+                        BusinessId = thisBiz.BusinessId,
+                        Business = thisBiz,
+                        Rating = model.Rating,
+                        ReviewText = model.ReviewText,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+                    _context.Add(newReview);
+                    _context.SaveChanges();
+                    return RedirectToAction("PublicProfile", "Home");
+                }
+                return RedirectToAction("NewReview");
+            }
+        }
     }
 }

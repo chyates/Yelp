@@ -59,9 +59,9 @@ namespace yelp.Controllers
 
         [HttpGet]
         [Route("/search/city")]
-        public IActionResult InnerCitySearch()
+        public IActionResult InnerCitySearch(string search)
         {
-            List<Business> businessResults = _context.Businesses.ToList();
+            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(search)).ToList();
             if(businessResults.Count < 1)
             {
                 ViewBag.noResults = "No establishments were found in that city. Try again?";
@@ -74,11 +74,28 @@ namespace yelp.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/search/city")]
+        public IActionResult CitySearch (string city)
+        {
+            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(city)).ToList();
+            if(businessResults.Count < 1)
+            {
+                ViewBag.noResults = "No establishments were found in that city. Try again?";
+                return RedirectToAction("InnerCitySearch");
+            }
+            else 
+            {
+                ViewBag.Results = businessResults;
+                return RedirectToAction("InnerCitySearch");
+            }
+        }
+
         [HttpGet]
         [Route("/search/category")]
-        public IActionResult InnerCatSearch()
+        public IActionResult InnerCatSearch(string search)
         {
-            List<Business> businessResults = _context.Businesses.ToList();
+            List<Business> businessResults = _context.Businesses.Where(b => b.CategoryType.CategoryType.Contains(search)).ToList();
             if(businessResults.Count < 1)
             {
                 ViewBag.noResults = "No establishments were found in that category. Try again?";
@@ -91,5 +108,21 @@ namespace yelp.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/search/category")]
+        public IActionResult CatSearch (string category)
+        {
+            List<Business> businessResults = _context.Businesses.Where(b => b.CategoryType.CategoryType.Contains(category)).ToList();
+            if(businessResults.Count < 1)
+            {
+                ViewBag.noResults = "No establishments were found in that category. Try again?";
+                return RedirectToAction("InnerCatSearch");
+            }
+            else 
+            {
+                ViewBag.Results = businessResults;
+                return RedirectToAction("InnerCatSearch");
+            }
+        }
     }
 }

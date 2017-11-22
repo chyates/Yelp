@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - yelp</title>
+    <title>@ViewData["Title"]</title>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
             asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
@@ -12,10 +12,25 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="container body-content">
-
-        @RenderBody()
+<!-- <div class="container body-content"> -->
+    <div id="home-header" class="jumbotron-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    <button type="button" id="log-reg-button" class="form-control btn-outline-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
+                </div>
+                <div class="col-8">
+                    <img id="header-logo" src="~/img/yodelLogo2.jpg"/>
+                </div>
+                <div class="col-2">
+                    <form>
+                        <input id="header-logout-button" class="form-control btn-outline-primary" type="submit" asp-action="Logout" asp-controller="Home" value="Logout">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+        @RenderBody()
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
                 asp-fallback-src="~/lib/jquery/dist/jquery.js"

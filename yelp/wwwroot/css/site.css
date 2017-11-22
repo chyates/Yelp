@@ -118,11 +118,11 @@
 
 .panel-heading a{
     background: -webkit-repeating-linear-gradient(-45deg, 
-    rgb(18, 83, 93) , 
-    rgb(18, 83, 93) 20px, 
-    rgb(64, 111, 118) 20px, 
-    rgb(64, 111, 118) 40px, 
-    rgb(18, 83, 93) 40px);
+    rgb(245, 97, 32) , 
+    rgb(247, 125, 45) 20px, 
+    rgb(250, 154, 58) 20px, 
+    rgb(252, 183, 71) 40px, 
+    rgb(255, 212, 84) 40px);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
@@ -230,8 +230,9 @@ footer.footer {
 
 /* CSS for rest of homepage */
 #home-header {
-    background-color: var(--orange);
-    
+    background-color: white;
+    padding: 2rem;
+    /* margin-left: 12rem; */
 }
 
 #header-logo {
@@ -239,11 +240,28 @@ footer.footer {
     height: 150px;
     opacity: 0.9;
     background-color:#e9ecef;
+    margin-left: 20rem;
 }
 
 #log-reg-button {
-    background-color: #d3d3d3;
-    border-color: #d3d3d3;
+    /* background-color: var(--yellow); */
+    border-color: var(--yellow);
+    color: black;
+    border-radius: 2px;
+}
+
+#header-logout-button {
+    border-color: var(--yellow);
+    color: black;
+    border-radius: 2px;
+}
+#header-city-search {
+    border-color: var(--purple);
+    color: black;
+}
+
+#header-cat-search {
+    border-color: var(--purple);
     color: black;
 }
 
@@ -263,6 +281,12 @@ footer.footer {
     background-color: var(--secondary);
     border-color: var(--orange);
     border-radius: 8px;
+}
+
+#index-container {
+    background-color: var(--lightblue);
+    /* opacity: 0.5; */
+    padding: 4rem;
 }
 
 .text-orange {
@@ -286,22 +310,25 @@ footer.footer {
 .text-yellow {
     color: var(--yellow);
 }
+.text-pink {
+    color: var(--pink);
+}
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 :root{
     --blue:#008cba;
     --indigo:#6610f2;
-    --purple:#6f42c1;
-    --pink:#e83e8c;
+    --purple:#4a2156;
+    --pink:#bc2731;
     --red:#F04124;
     --orange:#f56120;
     --lightorange: #fdb797;
     --darkorange: #F04124;
-    --yellow:#E99002;
-    --green:#43ac6a;
+    --yellow:#ffd454;
+    --green:#3c6e2e;
     --teal:#20c997;
     --cyan:#5bc0de;
-    --lightblue: #5bc0de;
+    --lightblue: #e4f3f5;
     --white:#fff;
     --gray:#888;
     --gray-dark:#333;
@@ -339,3 +366,42 @@ footer.footer {
         "Courier New", 
         monospace
 }
+
+.btn-outline-primary {
+    color: #008cba;
+    background-color: transparent;
+    background-image: none;
+    border-color: #008cba;
+  }
+  
+  .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #008cba;
+    border-color: #008cba;
+  }
+  
+  .btn-outline-primary:focus, .btn-outline-primary.focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+  }
+  
+  .btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: #008cba;
+    background-color: transparent;
+  }
+  
+  .btn-outline-primary:not([disabled]):not(.disabled):active, .btn-outline-primary:not([disabled]):not(.disabled).active,
+  .show > .btn-outline-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #008cba;
+    border-color: #008cba;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+  }
+
+  .jumbotron {
+    padding: 2rem 2rem;
+    /* margin-bottom: 2rem; */
+    background-color: #eee;
+    border-radius: 0;
+  }

@@ -81,17 +81,6 @@ namespace yelp.Controllers
             return View();
         }
 
-
-
-
-
-
-
-
-
-
-
-
         // POST: /login
         [HttpPost]
         [Route("login")]
@@ -252,12 +241,45 @@ namespace yelp.Controllers
         [Route("/users/{userId}/profile")]
         public IActionResult PublicProfile(int UserId)
         {
-            User thisUser = _context.Users.SingleOrDefault(u => u.UserId == UserId);
+            User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == UserId);
+            
+            // hopefully query above can remove necessity for below
             List<Review> userReviews = _context.Reviews.Where(r => r.UserId == thisUser.UserId).ToList();
 
             ViewBag.User = thisUser;
             ViewBag.UserReviews = userReviews;
             return View(); 
+        }
+
+        [HttpPost]
+        [Route("/users/{userId}/settings/update")]
+        public IActionResult UpdateSettings(UserRegViewModel model, int userId)
+        {
+            User upUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userId);
+            if (ModelState.IsValid)
+            {
+                upUser.FirstName = model.FirstName;
+                upUser.LastName = model.LastName;
+                upUser.Email = model.Email;
+                upUser.Password = model.Password;
+                upUser.ZipCode = model.ZipCode;
+                upUser.UpdatedAt = DateTime.Now;
+                _context.Update(upUser);
+                _context.SaveChanges();
+                return RedirectToAction("UserProfile");
+            }
+            return RedirectToAction("UserProfile");
+        }
+
+        [HttpGet]
+        [Route("/users/{userId}/reviews/{reviewId}/delete")]
+        public IActionResult DeleteReview(int userID, int reviewID)
+        {
+            User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userID);
+            Review thisReview = _context.Reviews.SingleOrDefault(r => r.UserId == userID);
+            _context.Remove(thisReview);
+            _context.SaveChanges();
+            return RedirectToAction("UserProfile");
         }
     }
 }
