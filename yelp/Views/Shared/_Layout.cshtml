@@ -17,15 +17,25 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2">
-                    <button type="button" id="log-reg-button" class="form-control btn-outline-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
+                    @{
+                        if (Context.Session.GetString("LoggedIn_Id") == null)
+                        {
+                            <button type="button" id="log-reg-button" class="form-control btn-outline-primary" data-toggle="modal" data-target="#myModal">Login / Sign up</button>
+                        }
+                    }
                 </div>
                 <div class="col-8">
                     <a href="/"><img id="header-logo" src="~/img/yodelLogo2.jpg"/></a>
                 </div>
                 <div class="col-2">
-                    <form>
-                        <input id="header-logout-button" class="form-control btn-outline-primary" type="submit" asp-action="Logout" asp-controller="Home" value="Logout">
-                    </form>
+                    @{
+                        if (Context.Session.GetString("LoggedIn_Id") != null)
+                        {
+                            <form>
+                                <input id="header-logout-button" class="form-control btn-outline-primary" type="submit" asp-action="Logout" asp-controller="Home" value="Logout">
+                            </form>
+                        }
+                    }
                 </div>
             </div>
         </div>
