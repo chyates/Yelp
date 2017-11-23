@@ -3,19 +3,254 @@
 }
 
 <div class="row">
-    <div class="col-md-12 mx-auto">
+    <div class="col-md-11 mx-auto">
         <div class="panel p-5">
             <div class="panel-body">
-                <h1 class="mb-4 text-orange">Business Name: @ViewBag.Biz.Name</h1>
-                <div class="row col-md-12">
-                    <span class="align-baseline mr-2 font-weight-bold">Category: @ViewBag.Biz.Category.Category</span>
-                    @{
-                        if (ViewBag.Biz.CategoryTypeId != null)
-                        {
-                            <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
-                        }
-                    }
+                <div class="row">
+                    <div class="col-md-4">
+                        <h1 class="col-md-12 mb-1 text-orange px-0">@ViewBag.Biz.Name</h1>
+                        <h4 class="col-md-12 mb-1 text-orange px-0">Yodelers Rate: @ViewBag.AvgRating / @ViewBag.CountRatings reviews</h4>
+                        <div class="row col-md-12">
+                            <span class="align-baseline mr-2 font-weight-bold">@ViewBag.Biz.Category.Category</span>
+                            @{
+                                if (ViewBag.Biz.CategoryTypeId != null)
+                                {
+                                    <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
+                                }
+                            }
+                            <span class="mx-5">~</span>
+                            <span class="font-weight-bold text-danger">@ViewBag.priceDollar</span>
+                        </div>
+                        <div class="card col-md-12 mt-3">
+                            <div class="card-header p-1">
+                                <iframe class="col-md-12 mx-auto" src="//www.google.com/maps/embed/v1/place?q=@ViewBag.MapAddress
+                                    &zoom=13
+                                    &key=@ViewBag.GoogleApiKey">
+                                </iframe>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><small><span class="font-weight-bold">@ViewBag.Biz.Address</span><br>@ViewBag.Biz.City, @ViewBag.Biz.State  @ViewBag.Biz.ZipCode</small></li>
+                                <li class="list-group-item">@ViewBag.Biz.Phone</li>
+                                <li class="list-group-item"><small><a href="@ViewBag.Biz.Website">@ViewBag.Biz.Website</a></small></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <!-- carousel of images -->
+                        <div class="carousel slide h-100" data-ride="carousel">
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    @{
+                                        if (ViewBag.Biz.ImageLink != null)
+                                        {
+                                            <img class="d-block w-100" src="@ViewBag.Biz.ImageLink">
+                                        }
+                                        <div class="jumbotron h-100">
+                                            <div class="container d-flex h-100">
+                                                <div class="row justify-content-center align-self-center">
+                                                    <h1 class="display-3">@ViewBag.Biz.Name</h1>
+                                                    <p class="lead">Add an image for your business!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- foreach image in review images -->
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="row col-md-12 mt-5 mb-5 pr-0 mr-0">
+                    <div class="col-md-8 p-3 border">
+                        <h1>REVIEWS</h1>
+                        <div class="row col-md-12 px-0 mx-0 mb-5">
+                            <div class="container d-flex justify-content-end">
+                                <a class="text-orange" href="/biz/@ViewBag.Biz.BusinessId/review/new"><u>Add a new review for this business ...</u></a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                        @{
+                            if (ViewBag.Reviews != null)
+                            {
+                                foreach (var review in ViewBag.Reviews)
+                                {
+                                    <div class="card border-secondary mb-4 mx-4 col-md-5">
+                                        <div class="card-header font-weight-bold">@review.user.FirstName @review.user.LastName[0] yodeled ...</div>
+                                        <div class="card-body">
+                                            <p class="card-text text-secondary">@review.ReviewText</p>
+                                            <h6 class="text-right text-orange">@review.Rating Stars</h6>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small>Posted @review.CreatedAt</small>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <span>There are currently no reviews for this business.</span>
+                            }
+                        }
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-3 border">
+                        <div class="row p-3">
+                            <h5 class="text-orange">Today (@ViewBag.DayOfWeek)</h4>
+                            <div class="row col-md-12">
+                                @{
+                                    if (ViewBag.todayClosed)
+                                    {
+                                        <span class="font-weight-bold text-danger">Closed Today</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-weight-bold mr-2">Open</span><span> @ViewBag.todayOpenTime - @ViewBag.todayCloseTime</span>
+                                        <span class="col-md-12 font-weight-bold p-0">Currently <span class="@ViewBag.isOpenCloseClass">@ViewBag.isOpenClose</span></span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="row p-3">
+                            <h5 class="text-orange">Hours</h4>
+                            <div class="row col-md-12">
+                                <dl>
+                                    <dd>
+                                        <span class="font-weight-bold">Monday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.MonClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.MonOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.MonCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Tuesday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.TueClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.TueOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.TueCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Wednesday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.WedClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.WedOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.WedCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Thursday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.ThuClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.ThuOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.ThuCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Friday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.FriClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.FriOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.FriCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Saturday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.SatClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.SatOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.SatCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                    <dd>
+                                        <span class="font-weight-bold">Sunday -- </span>
+                                        @{
+                                            if (ViewBag.Biz.BusinessHours.SunClosed)
+                                            {
+                                                <span class="font-weight-bold text-danger">Closed</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@ViewBag.Biz.BusinessHours.SunOpenTime.ToString("t") - @ViewBag.Biz.BusinessHours.SunCloseTime.ToString("t")</span>
+                                            }
+                                        }
+                                    </dd>
+                                </dl>
+                            </div>
+
+                        </div>
+                        <div class="row p-3">
+                            <div class="row col-md-12">
+                                <h5 class="text-orange">More Business Info</h4>
+
+                            </div>
+                            <div class="row col-md-12">
+                                <dl>
+                                    <dd><span class="font-weight-bold">Market Price -- @ViewBag.priceDollar</span></dd>
+                                    <dd><span class="font-weight-bold">Ambience -- </span> @ViewBag.Biz.BusinessProperty.ambience</dd>
+                                    <dd><span class="font-weight-bold">Good for -- </span> @ViewBag.Biz.BusinessProperty.goodforTimeOfDay</dd>
+                                    <dd><span class="font-weight-bold">Good for Kids -- </span> @(ViewBag.Biz.BusinessProperty.kidfriendly?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Good for Groups -- </span> @(ViewBag.Biz.BusinessProperty.groupfriendly?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Delivers -- </span> @(ViewBag.Biz.BusinessProperty.delivery?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Takeout -- </span> @(ViewBag.Biz.BusinessProperty.takeout?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Wait Service -- </span> @(ViewBag.Biz.BusinessProperty.waiter?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Caters -- </span> @(ViewBag.Biz.BusinessProperty.caters?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">By Appointment Only -- </span> @(ViewBag.Biz.BusinessProperty.ByApointOnly?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Takes Reservations -- </span> @(ViewBag.Biz.BusinessProperty.reservations?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Outdoor Seating -- </span> @(ViewBag.Biz.BusinessProperty.outdoor?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Serves Alcohol -- </span> @(ViewBag.Biz.BusinessProperty.alcohol?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Credit Cards -- </span> @(ViewBag.Biz.BusinessProperty.creditcards?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Parking -- </span> @ViewBag.Biz.BusinessProperty.parkwhere</dd>
+                                    <dd><span class="font-weight-bold">Bike Parking -- </span> @(ViewBag.Biz.BusinessProperty.bikeparking?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Wheelchair -- </span> @(ViewBag.Biz.BusinessProperty.wheelchair?"Yes":"No")</dd>
+                                    <dd><span class="font-weight-bold">Wifi -- </span> @(ViewBag.Biz.BusinessProperty.wifi?"Yes":"No")</dd>
+                                </dl>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
             </div>
         </div>
     </div>

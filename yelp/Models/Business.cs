@@ -29,6 +29,9 @@ namespace yelp.Models
         [InverseProperty("Business")]
         public BusProperties BusinessProperty { get; set; }
 
+        [InverseProperty("Business")]
+        public BusHours BusinessHours { get; set; }
+
 
         // Default Constructor without parameters
         public Business()
@@ -37,6 +40,7 @@ namespace yelp.Models
             this.UpdatedAt = DateTime.Now;
             Reviews = new List<Review>();
             BusinessProperty = new BusProperties();
+            BusinessHours = new BusHours();
         }
         public Business(BusinessViewModel NewBusiness)
         {
@@ -64,6 +68,7 @@ namespace yelp.Models
             this.UpdatedAt = DateTime.Now;
             this.Reviews = new List<Review>();
             this.BusinessProperty = new BusProperties();
+            this.BusinessHours = new BusHours();
         }
     }
 

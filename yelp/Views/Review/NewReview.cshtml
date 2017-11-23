@@ -1,13 +1,28 @@
 @model yelp.Models.ReviewViewModel
+@{
+    ViewData["Title"] = "Yodel | Review"; 
+}
 
-<h3>@ViewBag.thisBiz.Name</h3>
-<form asp-controller="Review" asp-action="CreateReview">
-    <input type="checkbox" value="1" name="Rating">1
-    <input type="checkbox" value="2" name="Rating">2
-    <input type="checkbox" value="3" name="Rating">3
-    <input type="checkbox" value="4" name="Rating">4
-    <input type="checkbox" value="5" name="Rating">5<br><br>
-    <textarea name="ReviewText" rows="6" cols="70" placeholder="Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees."></textarea><br>
-    <input type="submit" value="Post Review">
-</form>
-<hr>
+<div class="row">
+    <div class="col-md-11 mx-auto">
+        <div class="panel p-5">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="row col-md-12">
+                        <h3>@ViewBag.thisBiz.Name</h3>
+                    </div>
+                    <form asp-controller="Review" asp-action="CreateReview" method="POST">
+                        <input type="checkbox" value="1" name="Rating">1
+                        <input type="checkbox" value="2" name="Rating">2
+                        <input type="checkbox" value="3" name="Rating">3
+                        <input type="checkbox" value="4" name="Rating">4
+                        <input type="checkbox" value="5" name="Rating">5<br><br>
+                        <textarea name="ReviewText" rows="6" cols="70" placeholder="Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees."></textarea><br>
+                        <input type="submit" value="Post Review">
+                    </form>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

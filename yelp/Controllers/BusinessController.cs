@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 
@@ -49,6 +50,7 @@ namespace yelp.Controllers
 
         private YelpContext _context;
         private IHostingEnvironment _env;
+        private readonly IOptions<GoogleMapSettings> _googlemaps;
 
         // Check user login status
         private bool checkLogStatus()
@@ -65,11 +67,16 @@ namespace yelp.Controllers
             }
         }
 
-        public BusinessController(YelpContext context, IHostingEnvironment env)
+        public BusinessController(
+            YelpContext context, 
+            IHostingEnvironment env,
+            IOptions<GoogleMapSettings> googlemapsettings
+        )
         {
             // Entity Framework connections
             _context = context;
             _env = env;
+            _googlemaps = googlemapsettings;
         }
 
         private void AddBusinessNameError(int BizId)
@@ -86,6 +93,15 @@ namespace yelp.Controllers
             // the business already has a 1:1 properties relationship
             string key = "creditcards";
             string errorMessage = "This business already has a set of business properties assigned. Reference URL: localhost/biz/" + BizId;
+            ModelState.AddModelError(key, errorMessage);
+            return;
+        }
+
+        private void AddBusHoursError(int BizId)
+        {
+            // the business already has a 1:1 hours relationship
+            string key = "AlwaysOpen";
+            string errorMessage = "This business already has a set of business hours assigned. Reference URL: localhost/biz/" + BizId;
             ModelState.AddModelError(key, errorMessage);
             return;
         }
@@ -352,6 +368,69 @@ namespace yelp.Controllers
             {
                 return RedirectToAction("NewBizProperties");
             }
+            return RedirectToAction("NewBizHours", biz_id);
+        }
+
+        // GET: /biz/{biz_id}/bizHours/new
+        [HttpGet]
+        [Route("/biz/{biz_id}/bizHours/new")]
+        [ImportModelState]
+        public IActionResult NewBizHours(int biz_id)
+        {
+            if (checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Business CurrBiz = _context.Businesses
+                .Where(biz => biz.BusinessId == biz_id)
+                .Include(biz => biz.Category)
+                .Include(biz => biz.CategoryType)
+                .Include(biz => biz.BusinessProperty)
+                .SingleOrDefault();
+            ViewBag.Biz = CurrBiz;
+            return View();
+        }
+
+        // POST: /biz/{biz_id}/bizHours/create
+        [HttpPost]
+        [Route("/biz/{biz_id}/bizHours/create")]
+        [ExportModelState]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateBizHours(BusHoursViewModel NewBizHrsVM, int biz_id)
+        {
+            if (checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                // Confirm the business does not already have a 1:1 hours record
+                try
+                {
+                    BusHours CheckHours = _context.Hours.SingleOrDefault(biz => biz.BusinessId == biz_id);
+                    if (CheckHours != null)
+                    {
+                        // the business already has an existing hours record; throw an error
+                        AddBusHoursError(biz_id);
+                        return RedirectToAction("NewBizHours");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // there were not any existing businesses with the same name
+                    // proceed with code
+                }
+                BusHours newBizHours = new BusHours(NewBizHrsVM);
+                newBizHours.BusinessId = biz_id;
+                _context.Hours.Add(newBizHours);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return RedirectToAction("NewBizHours");
+            }
             return RedirectToAction("ViewBiz", biz_id);
         }
 
@@ -369,10 +448,140 @@ namespace yelp.Controllers
                 .Where(biz => biz.BusinessId == biz_id)
                 .Include(biz => biz.Category)
                 .Include(biz => biz.CategoryType)
+                .Include(biz => biz.BusinessHours)
                 .Include(biz => biz.BusinessProperty)
                 .SingleOrDefault();
+            List<Review> ReturnedReviews = _context.Reviews
+                .Where(rev => rev.BusinessId == biz_id)
+                .Include(rev => rev.user)
+                .ToList();
+            double AvgRating = 0.0;
+            int CountRatings = 0;
+            if (ReturnedReviews.Count() > 0)
+            {
+                AvgRating = ReturnedReviews
+                    .Select(rev => rev.Rating)
+                    .Average();
+                AvgRating = Math.Round(AvgRating, 2);
+                CountRatings = ReturnedReviews
+                    .Select(rev => rev.Rating)
+                    .Count();
+            }
 
+            DateTime today = DateTime.Now;
+            DateTime _opentime = new DateTime();
+            DateTime _closetime = new DateTime();
+            string DayOfWeek = today.ToString("ddd");
+            bool todayClosed = false;
+            switch (DayOfWeek)
+            {
+                case "Mon":
+                    if (CurrBiz.BusinessHours.MonClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.MonOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.MonCloseTime;
+                    }
+                    break;
+                case "Tue":
+                    if (CurrBiz.BusinessHours.TueClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.TueOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.TueCloseTime;
+                    }
+                    break;
+                case "Wed":
+                    if (CurrBiz.BusinessHours.WedClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.WedOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.WedCloseTime;
+                    }
+                    break;
+                case "Thu":
+                    if (CurrBiz.BusinessHours.ThuClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.ThuOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.ThuCloseTime;
+                    }
+                    break;
+                case "Fri":
+                    if (CurrBiz.BusinessHours.FriClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.FriOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.FriCloseTime;
+                    }
+                    break;
+                case "Sat":
+                    if (CurrBiz.BusinessHours.SatClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.SatOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.SatCloseTime;
+                    }
+                    break;
+                case "Sun":
+                    if (CurrBiz.BusinessHours.SunClosed)
+                    { todayClosed = true; }
+                    else
+                    {
+                        _opentime = (DateTime)CurrBiz.BusinessHours.SunOpenTime;
+                        _closetime = (DateTime)CurrBiz.BusinessHours.SunCloseTime;
+                    }
+                    break;
+            }
+            ViewBag.DayOfWeek = DayOfWeek;
+            ViewBag.todayClosed = todayClosed;
+            ViewBag.todayOpenTime = _opentime.ToString("t");
+            ViewBag.todayCloseTime = _closetime.ToString("t");
+            if (
+                (TimeSpan.Compare(today.TimeOfDay, _opentime.TimeOfDay) > 0) &&
+                (TimeSpan.Compare(today.TimeOfDay, _closetime.TimeOfDay) < 0)
+            )
+            {
+                ViewBag.isOpenCloseClass = "text-success";
+                ViewBag.isOpenClose = "Open";
+            }
+            else
+            {
+                ViewBag.isOpenCloseClass = "text-danger";
+                ViewBag.isOpenClose = "Closed";
+            }
+
+            string priceDollar = "";
+            switch (CurrBiz.BusinessProperty.price)
+            {
+                case 1:
+                    priceDollar = "$";
+                    break;
+                case 2:
+                    priceDollar = "$$";
+                    break;
+                case 3:
+                    priceDollar = "$$$";
+                    break;
+                case 4:
+                    priceDollar = "$$$$";
+                    break;
+            }
+            ViewBag.priceDollar = priceDollar;
+
+            string MapAddress = CurrBiz.Address + ", " + CurrBiz.City + ", " + CurrBiz.State + " " + CurrBiz.ZipCode;
+            ViewBag.MapAddress = MapAddress;
+            ViewBag.GoogleApiKey = _googlemaps.Value.KeyString;
             ViewBag.Biz = CurrBiz;
+            ViewBag.Reviews = ReturnedReviews;
+            ViewBag.AvgRating = AvgRating;
+            ViewBag.CountRatings = CountRatings;
             return View("ViewBusiness");
         }
 

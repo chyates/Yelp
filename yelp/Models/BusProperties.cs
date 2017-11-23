@@ -48,6 +48,25 @@ namespace yelp.Models
 
         public BusProperties(BizPropertiesViewModel BizPropVM)
         {
+            this.creditcards = BizPropVM.creditcards;
+            this.bikeparking = BizPropVM.bikeparking;
+            this.wheelchair = BizPropVM.wheelchair;
+            this.kidfriendly = BizPropVM.kidfriendly;
+            this.wifi = BizPropVM.wifi;
+            this.price = BizPropVM.price;
+            this.parkwhere = BizPropVM.parkwhere;
+            this.goodforTimeOfDay = BizPropVM.goodforTimeOfDay;
+            this.ByApointOnly = BizPropVM.ByApointOnly;
+            this.reservations = BizPropVM.reservations;
+            this.delivery = BizPropVM.delivery;
+            this.takeout = BizPropVM.takeout;
+            this.groupfriendly = BizPropVM.groupfriendly;
+            this.alcohol = BizPropVM.alcohol;
+            this.outdoor = BizPropVM.outdoor;
+            this.waiter = BizPropVM.waiter;
+            this.caters = BizPropVM.caters;
+            this.ambience = BizPropVM.ambience;
+
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
         }

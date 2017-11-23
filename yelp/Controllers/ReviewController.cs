@@ -70,14 +70,17 @@ namespace yelp.Controllers
                 User thisUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currUserId);
 
                 Business thisBiz = _context.Businesses.SingleOrDefault(b => b.BusinessId == bizId);
+                IEnumerable<int> ReviewOptions = Enumerable.Range(1,5);
                 ViewBag.thisBiz = thisBiz;
+                ViewBag.ReviewOptions = ReviewOptions;
                 return View();
             }
         }
 
         [HttpPost]
         [Route("/biz/{bizId}/review/create")]
-        public IActionResult CreateReview (ReviewViewModel model, int bizId)
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateReview(ReviewViewModel model, int bizId)
         {
             if (checkLogStatus() == false)
             {
@@ -101,9 +104,10 @@ namespace yelp.Controllers
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };
+                    int biz_Id = bizId;
                     _context.Add(newReview);
                     _context.SaveChanges();
-                    return RedirectToAction("PublicProfile", "Home");
+                    return RedirectToAction("ViewBiz", "Business", biz_Id);
                 }
                 return RedirectToAction("NewReview");
             }
