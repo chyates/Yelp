@@ -61,13 +61,22 @@ namespace yelp.Controllers
         [Route("/search/city")]
         public IActionResult InnerCityMainSearch()
         {
-            // List<Business> businessResults = _context.Businesses..ToList();
-            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
+            if(checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+                User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
+                // List<Business> businessResults = _context.Businesses..ToList();
+                List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
 
-            ViewBag.Locations = businessLocations;
-            // ViewBag.Results = businessResults;
-            return View();
-
+                ViewBag.Locations = businessLocations;
+                ViewBag.User = currentUser;
+                // ViewBag.Results = businessResults;
+                return View();
+            }
         }
 
         [HttpPost]
@@ -136,6 +145,29 @@ namespace yelp.Controllers
             {
                 ViewBag.Results = businessResults;
                 return RedirectToAction("InnerCatSearch");
+            }
+        }
+
+        [HttpGet]
+        [Route("/search/all")]
+        public IActionResult SearchAll ()
+        {
+            if(checkLogStatus() == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+                User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
+                List<BusCategory> allCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
+                List<Business> allLocs = _context.Businesses.GroupBy(b => b.State).Select(b => b.FirstOrDefault()).ToList();
+
+                ViewBag.AllCats = allCats;
+                ViewBag.AllLocs = allLocs;
+                ViewBag.User = currentUser;
+
+                return View();
             }
         }
     }

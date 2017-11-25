@@ -1,0 +1,11 @@
+<h3>Businesses by Location</h3>
+@foreach(var state in ViewBag.AllLocs)
+{
+    <p>@state.State</p>
+}
+
+<h3>Business by Category</h3>
+@foreach (var category in ViewBag.AllCats)
+{
+    <p>@category.Category</p>
+}

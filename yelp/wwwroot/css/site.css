@@ -285,7 +285,6 @@ footer.footer {
 
 #index-container {
     background-color: var(--lightblue);
-    /* opacity: 0.5; */
     padding: 4rem;
 }
 
@@ -399,9 +398,22 @@ footer.footer {
             box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
   }
 
-  .jumbotron {
-    padding: 2rem 2rem;
-    /* margin-bottom: 2rem; */
-    background-color: #eee;
-    border-radius: 0;
-  }
+.jumbotron {
+padding: 2rem 2rem;
+/* margin-bottom: 2rem; */
+background-color: #eee;
+border-radius: 0;
+}
+
+#navbar-bottom a {
+    margin: 20px;
+}
+
+#settings {
+    background-color: var(--lightblue);
+}
+
+#footer-pic {
+    width: 30%;
+    margin-top: 2%;
+}

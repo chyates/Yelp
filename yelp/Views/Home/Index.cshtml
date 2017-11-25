@@ -225,53 +225,41 @@
 
 <!-- Rest of homepage -->
 
+@if(ViewBag.User != null)
+{
+    @Html.Partial("NavbarPartial");
+}
 <div id="index-container" class="container-fluid">
-    @if(ViewBag.LogUser != null)
-    {
-        <div class="row">
-            <!-- <div class="col-md-10 p-0">
-                <h3 class="mb-4 text-darkorange">Welcome</h3>
-            </div> -->
-            <div class="col-md-2">
-                <form>
-                    <input class="btn btn-outline-primary" id="header-city-search" type="submit" asp-action="InnerCityMainSearch" asp-controller="Search" value="Search by City">
-                </form>
-            </div>
-            <div class="col-md-2">
-                <form>
-                    <input type="submit" class="btn btn-outline-primary" id="header-cat-search" asp-action="InnerCatSearch" asp-controller="Search" value="Search by Category">
-                </form>
-            </div>
-            <div class="col-md-8 text-right">
-                <p class="float-right"><a class="text-pink" href="/users/@ViewBag.LogUser.UserId/settings">Edit profile</a> | <a class="text-pink" href="/users/@ViewBag.LogUser.UserId/profile">View Profile</a></p>
-            </div>
-        </div>
-    }
-
     <div class="row">
         <h3>Recent Businesses</h3>
     </div>
         @if(@ViewBag.Businesses != null)
         {
+        <div class="row">
             @foreach(var business in ViewBag.Businesses)
             {
+                <div class="col-md">
                     <a href="/biz/@business.BusinessId">@business.Name</a>
+                </div>
             }
+        </div>
         }
     <div class="row">        
         <h3>Yodel by Location</h3>
     </div>
         @if(@ViewBag.Locations != null)
         {
+        <div class="row">
             @foreach(var business in ViewBag.Locations)
             {
-                <div>
-                    <a href="biz/city/@business.City.Replace(" ", "_")">@business.City</a>
-                </div>
+                    <div class="col-4">
+                        <a href="biz/city/@business.City.Replace(" ", "_")"><button class="btn btn-outline-primary">@business.City</button></a>
+                    </div>
             }
+        </div>
         }
     <div class="row text-center">        
-        <h3 class="float-center">Recent Reviews</h3>
+        <h3 class="float-center">Recent Reviewers</h3>
     </div>
         @if(@ViewBag.RecentReviews != null)
         {
@@ -283,3 +271,7 @@
             }
         }
 </div>
+@if(ViewBag.User != null)
+{
+    @Html.Partial("FooterPartial");
+}

@@ -3,6 +3,10 @@
         <div class="col-md-12 mx-auto">
             <div class="panel p-3">
                 <div class="panel-body">
+                    @if (ViewBag.User != null)
+                    {
+                        @Html.Partial("NavbarPartial")
+                    }
                     <form asp-controller="Search" asp-action="CitySearch" method="POST">
                         <div class="row col-md-12">
                             <div class="col-md-4">

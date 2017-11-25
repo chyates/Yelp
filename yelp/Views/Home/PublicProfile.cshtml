@@ -1,17 +1,23 @@
-<h2>@ViewBag.User.FirstName</h2>
-
-<h3>@ViewBag.User.ZipCode</h3>
-
-@if(ViewBag.UserReviews != null)
+@if(ViewBag.User != null)
 {
-    <h5>Recent reviews:</h5>
-    @foreach (var review in ViewBag.User.Reviews)
+    @Html.Partial("NavbarPartial");
+}
+
+<div class="container-fluid">
+    <h2>@ViewBag.User.FirstName</h2>
+    <h4>@ViewBag.StateName</h4>
+
+    @if(ViewBag.UserReviews != null)
     {
-        <p>@review.ReviewText</p>
+        <h5>Recent reviews:</h5>
+        @foreach (var review in ViewBag.User.Reviews)
+        {
+            <p>@review.ReviewText</p>
+            <li>@review.Business.Name</li>
+        }
     }
-}
-else 
-{
-    <p>No recent activity</p>
-}
-<hr>
+    else 
+    {
+        <p>No recent activity</p>
+    }
+</div>

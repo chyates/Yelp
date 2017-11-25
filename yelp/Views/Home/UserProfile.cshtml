@@ -1,57 +1,62 @@
 @model yelp.Models.UserRegViewModel
 
-<p>Welcome @ViewBag.User.FirstName! Edit your account</p>
+@if(ViewBag.User != null)
+{
+    @Html.Partial("NavbarPartial");
+}
 
-<div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-            <h5 class="mb-0">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Edit Profile</a>
-            </h5>
-        </div>
+<div id="settings" class="container-fluid">
+<h3>Welcome, @ViewBag.User.FirstName!</h3>
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h5 class="mb-2">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Edit Profile</a>
+                </h5>
+            </div>
 
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-            <div class="card-block">
-                <form asp-controller="Home" asp-action="UpdateUser">
-                    <input type="text" name="FirstName" value="@ViewBag.User.FirstName"><br><br>
-                    <input type="text" name="LastName" value="@ViewBag.User.LastName"><br><br>
-                    <input type="email" name="Email" value="@ViewBag.User.Email"><br><br>
-                    <input type="password" name="Password" placeholder="Update password"><br><br>
-                    <input type="password" name="ConfirmPassword" placeholder="Confirm new password"><br><br>
-                    <input type="text" name="ZipCode" value="@ViewBag.User.ZipCode"><br><br>
-                    <input type="submit" value="Update user information">
-                </form>
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-block">
+                    <form asp-controller="Home" asp-action="UpdateUser">
+                        <input class="col-3" type="text" name="FirstName" value="@ViewBag.User.FirstName"><br><br>
+                        <input class="col-3" type="text" name="LastName" value="@ViewBag.User.LastName"><br><br>
+                        <input class="col-3" type="email" name="Email" value="@ViewBag.User.Email"><br><br>
+                        <input class="col-3" type="password" name="Password" placeholder="Update password"><br><br>
+                        <input class="col-3" type="password" name="ConfirmPassword" placeholder="Confirm new password"><br><br>
+                        <input class="col-3" type="text" name="ZipCode" value="@ViewBag.User.ZipCode"><br><br>
+                        <input type="submit" value="Update user information">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header" role="tab" id="headingTwo">
-            <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Your Reviews</a>
-            </h5>
-        </div>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingTwo">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Your Reviews</a>
+                </h5>
+            </div>
 
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-            <div class="card-block">
-                <p>Review content and info</p>
-                <a href="/users/@ViewBag.User.UserId/reviews/delete">Delete?</a>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="card-block">
+                    <p>Review content and info</p>
+                    <a href="/users/@ViewBag.User.UserId/reviews/delete">Delete?</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header" role="tab" id="headingThree">
-            <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Your Bookmarks</a>
-            </h5>
-        </div>
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-            <div class="card-block">
-                <p>Saved businesses</p>
-                <a href="/bookmarks/delete">Delete?</a>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingThree">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Your Bookmarks</a>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="card-block">
+                    <p>Saved businesses</p>
+                    <a href="/bookmarks/delete">Delete?</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<hr>
