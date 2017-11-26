@@ -295,6 +295,18 @@ footer.footer {
     margin: 0;
     border: 0;
 }
+#settings {
+    background-color: var(--lightblue);
+    padding: 3rem;
+    margin: 0;
+    border: 0;
+}
+
+#settings-welcome {
+    padding: 5px;
+}
+
+
 
 #new-biz-container {
     background-color: var(--lightblue);
@@ -426,6 +438,23 @@ border-radius: 0;
 
 #settings {
     background-color: var(--lightblue);
+}
+
+#settings-review {
+    padding: 2rem;
+}
+
+#city-container {
+    padding: 2rem;
+    background-color: var(--lightblue);
+}
+
+#test1 {
+    padding: 1rem;
+}
+
+#test2 {
+    padding: 2rem;
 }
 
 #footer-pic {

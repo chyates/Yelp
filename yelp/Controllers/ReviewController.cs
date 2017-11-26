@@ -24,8 +24,6 @@ namespace yelp.Controllers
         //  /search/all
         //  /search/category={category_id}
         //  /search/category={category_id}&subcategory={subcategory_id}
-        //  /search/city={city}&category={category_id}
-        //  /search/city={city}&subcategory={subcategory_id}
         // ########## ROUTES ##########
 
         private const string LOGGED_IN_ID = "LoggedIn_Id";

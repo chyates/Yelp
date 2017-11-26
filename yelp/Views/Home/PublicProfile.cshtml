@@ -14,8 +14,8 @@
         <h5>Recent reviews:</h5>
         @foreach (var review in ViewBag.User.Reviews)
         {
-            <p>@review.ReviewText</p>
-            <li>@review.Business.Name</li>
+            <p>"@review.ReviewText"</p>
+            <p>--<a href="/biz/@review.Business.BusinessId">@review.Business.Name</a></p>
         }
     }
     else 

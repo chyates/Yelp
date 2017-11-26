@@ -1,0 +1,51 @@
+@using yelp.Models
+@model List<Business>
+
+@{
+    ViewData["Title"] = "Yodel | Search"; 
+}
+
+@Html.Partial("NavbarPartial")
+
+<div id="city-container" class="container-fluid">
+    <h2 class="text-center text-purple">Search businesses by city, name, or category</h2>
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="panel p-3">
+                <div class="panel-body">
+                    <form class="form-inline" asp-action="Search" asp-controller="Search" method="POST">
+                        <div class="row col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <input class="form-control" type="text" name="searchContent" placeholder="Enter your search">
+                                            <select class="form-control" name="categoryContent">
+                                                <option value="Name">Name</option>
+                                                <option value="Category">Category</option>
+                                                <option value="City">City</option>
+                                            </select>
+                                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if(Model != null)
+    {
+        <h4 id="test1" class="text-purple">Results</h4>
+        <div class="row">
+            @foreach (var business in Model)
+            {
+                <p id="test2" class="text-justify"><a href="/biz/@business.BusinessId">@business.Name</a></p>
+            } 
+        </div>
+    }
+</div>
+@Html.Partial("FooterPartial")

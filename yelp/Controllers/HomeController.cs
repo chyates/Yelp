@@ -444,7 +444,10 @@ namespace yelp.Controllers
     [Route("/users/{userId}/settings")]
     public IActionResult UserProfile(int UserId)
     {
-        User thisUser = _context.Users.SingleOrDefault(u => u.UserId == UserId);
+        User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == UserId);
+        List<Review> userReviews = _context.Reviews.Include(r => r.Business).Where(r => r.UserId == thisUser.UserId).ToList();
+
+        ViewBag.UserReviews = userReviews;
         ViewBag.User = thisUser;
         return View();
     }

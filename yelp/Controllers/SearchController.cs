@@ -24,9 +24,6 @@ namespace yelp.Controllers
         //  /search/all
         //  /search/category={category_id}
         //  /search/category={category_id}&subcategory={subcategory_id}
-        //  /search/city={city}
-        //  /search/city={city}&category={category_id}
-        //  /search/city={city}&subcategory={subcategory_id}
         // ########## ROUTES ##########
 
         private const string LOGGED_IN_ID = "LoggedIn_Id";
@@ -58,10 +55,10 @@ namespace yelp.Controllers
         }
 
         [HttpGet]
-        [Route("/search/city")]
-        public IActionResult InnerCityMainSearch()
+        [Route("/search")]
+        public IActionResult MainSearch(string search, string category)
         {
-            if(checkLogStatus() == false)
+            if (checkLogStatus() == false)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -69,155 +66,45 @@ namespace yelp.Controllers
             {
                 int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
                 User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
-                // List<Business> businessResults = _context.Businesses..ToList();
-                List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
-
-                ViewBag.Locations = businessLocations;
-                ViewBag.User = currentUser;
-                // ViewBag.Results = businessResults;
-                return View();
-            }
-        }
-
-        [HttpPost]
-        [Route("/search/{city}")]
-        public IActionResult CitySearch (string city)
-        {
-            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(city)).ToList();
-            if(businessResults.Count < 1)
-            {
-                ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return RedirectToAction("InnerCityMainSearch");
-            }
-            else 
-            {   
-               ViewBag.Results = businessResults;
-               string formatCity = city.Replace(" ", "_");
-               return RedirectToAction("InnerCitySearchResults", new {formatCity = formatCity});
-            }
-        }
-
-        [HttpGet]
-        [Route("/search/city/{formatCity}")]
-        public IActionResult InnerCitySearchResults(string formatCity)
-        {
-            List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(formatCity.Replace("_", " "))).ToList();
-            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
-            int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
-            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
-
-            ViewBag.User = currentUser;
-            ViewBag.Locations = businessLocations;
-            if(businessResults.Count < 1)
-            {
-                ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return View();
-            }
-            else 
-            {   
-                ViewBag.Results = businessResults;
-                return View();
-            }
-        }
-
-        [HttpGet]
-        [Route("/search/category")]
-        public IActionResult InnerCatSearch(string search)
-        {
-            if(checkLogStatus() == false)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else 
-            {
-                int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
-                User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
                 ViewBag.User = currentUser;
                 
-                List<Business> businessResults = _context.Businesses.Where(b => b.CategoryType.CategoryType.Contains(search)).ToList();
-                // List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
-                List<BusCategory> businessCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
-                if(businessResults.Count < 1)
+                if (search != null)
                 {
-                    ViewBag.noResults = "No establishments were found in that category. Try again?";
-                    return View();
+                    if (category == "Name")
+                    {
+                        List<Business> NameSearch = _context.Businesses.Where(b => b.Name.ToLower().Contains(search.ToLower())).ToList();
+                        return View(NameSearch);
+                    }
+                    if (category == "City")
+                    {
+                        List<Business> CitySearch = _context.Businesses.Where(b => b.City.ToLower().Contains(search.ToLower())).ToList();
+                        return View(CitySearch);
+                    }
+                    if (category == "Category")
+                    {
+                        List<Business> CategorySearch = _context.Businesses.Where(b => b.Category.Category.ToLower() == search.ToLower()).ToList();
+                        return View(CategorySearch);
+                    }
                 }
-                else 
-                {
-                    ViewBag.Cats = businessCats;
-                    ViewBag.Results = businessResults;
-                    return View();
-                }
+
+                // List<Business> model = _context.Businesses.ToList();
+                return View();
             }
         }
 
         [HttpPost]
-        [Route("/search/{category}")]
-        public IActionResult CatSearch (string category)
+        [Route("/find")]
+        public IActionResult Search(string searchContent, string categoryContent)
         {
-            // List<Business> businessResults = _context.Businesses.Where(b => b.City.Contains(city)).ToList();
-            List<BusCategory> catResults = _context.Categories.Where(c => c.Category.Contains(category)).ToList();
-            if(catResults.Count < 1)
-            {
-                ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return RedirectToAction("InnerCatMainSearch");
-            }
-            else 
-            {   
-               ViewBag.Results = catResults;
-               string formatCat = category.Replace(" ", "_");
-               return RedirectToAction("InnerCitySearchResults", new {formatCat = formatCat});
-            }
+
+            return RedirectToAction("MainSearch", new {search = searchContent, category = categoryContent});
         }
-
-        [HttpGet]
-        [Route("/search/category/{formatCat}")]
-        public IActionResult InnerCatSearchResults(string formatCat)
-        {
-            List<Business> businessResults = _context.Businesses.Where(b => b.Category.Category.Contains(formatCat.Replace("_", " "))).ToList();
-            List<BusCategory> businessCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
-            // List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().ToList();
-            int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
-            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
-
-            ViewBag.User = currentUser;
-            // ViewBag.Locations = businessLocations;
-            if(businessResults.Count < 1)
-            {
-                ViewBag.noResults = "No establishments were found in that city. Try again?";
-                return View();
-            }
-            else 
-            {   
-                ViewBag.Cats = businessCats;
-                ViewBag.Results = businessResults;
-                return View();
-            }
-        }
-
-        // [HttpPost]
-        // [Route("/search/category")]
-        // public IActionResult CatSearch (string category)
-        // {   
-        //     List<Business> businessResults = _context.Businesses.Where(b => b.CategoryType.CategoryType.Contains(category)).ToList();
-
-        //     if(businessResults.Count < 1)
-        //     {
-        //         ViewBag.noResults = "No establishments were found in that category. Try again?";
-        //         return RedirectToAction("InnerCatSearch");
-        //     }
-        //     else 
-        //     {
-        //         ViewBag.Results = businessResults;
-        //         return RedirectToAction("InnerCatSearch");
-        //     }
-        // }
 
         [HttpGet]
         [Route("/search/all")]
-        public IActionResult SearchAll ()
+        public IActionResult SearchAll()
         {
-            if(checkLogStatus() == false)
+            if (checkLogStatus() == false)
             {
                 return RedirectToAction("Index", "Home");
             }
