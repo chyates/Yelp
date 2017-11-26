@@ -270,7 +270,6 @@ footer.footer {
     color: black;
 }
 
-
 .upload_img {
     width: 100%;
 }
@@ -289,6 +288,10 @@ footer.footer {
     padding: 4rem;
 }
 
+.home-row {
+    padding: 1rem;
+}
+
 #prof-container {
     background-color: var(--lightblue);
     padding: 4rem;
@@ -305,8 +308,6 @@ footer.footer {
 #settings-welcome {
     padding: 5px;
 }
-
-
 
 #new-biz-container {
     background-color: var(--lightblue);
@@ -468,6 +469,14 @@ border-radius: 0;
     margin-bottom: 0px;
     border: 0;
     /* background-color: var(--pink); */
+}
+
+#navbar-span {
+    color: var(--green);
+}
+
+#nav-1, #nav-2, #nav-3, #nav-4 {
+    color: var(--purple);
 }
 
 #accordion {

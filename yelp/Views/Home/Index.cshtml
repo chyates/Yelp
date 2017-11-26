@@ -231,7 +231,7 @@
 }
 
 <div id="index-container" class="container-fluid">
-    <div class="row">
+    <div class="home-row row">
         <h3>Recent Businesses</h3>
     </div>
         @if(@ViewBag.Businesses != null)
@@ -245,7 +245,7 @@
             }
         </div>
         }
-    <div class="row">        
+    <div class="home-row row">        
         <h3>Yodel by Location</h3>
     </div>
         @if(@ViewBag.Locations != null)
@@ -260,7 +260,7 @@
         </div>
         }
     <div class="row text-center">        
-        <h3 class="float-center">Recent Reviewers</h3>
+        <h3 class="home-row float-center">Recent Reviewers</h3>
     </div>
         @if(@ViewBag.RecentReviews != null)
         {
