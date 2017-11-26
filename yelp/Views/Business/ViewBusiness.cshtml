@@ -45,14 +45,17 @@
                                         {
                                             <img class="d-block w-100" src="@ViewBag.Biz.ImageLink">
                                         }
-                                        <div class="jumbotron h-100">
-                                            <div class="container d-flex h-100">
-                                                <div class="row justify-content-center align-self-center">
-                                                    <h1 class="display-3">@ViewBag.Biz.Name</h1>
-                                                    <p class="lead">Add an image for your business!</p>
+                                        else
+                                        {
+                                            <div class="jumbotron h-100">
+                                                <div class="container d-flex h-100">
+                                                    <div class="row justify-content-center align-self-center">
+                                                        <h1 class="display-3">@ViewBag.Biz.Name</h1>
+                                                        <p class="lead">Add an image for your business!</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
                                 </div>
 
