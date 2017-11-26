@@ -70,9 +70,11 @@ namespace yelp.Controllers
                 User thisUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currUserId);
 
                 Business thisBiz = _context.Businesses.SingleOrDefault(b => b.BusinessId == bizId);
+
                 IEnumerable<int> ReviewOptions = Enumerable.Range(1,5);
                 ViewBag.thisBiz = thisBiz;
                 ViewBag.ReviewOptions = ReviewOptions;
+
                 return View();
             }
         }
