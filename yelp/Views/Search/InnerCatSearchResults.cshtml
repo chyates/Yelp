@@ -1,8 +1,3 @@
-@{
-    ViewData["Title"] = "Yodel | City Search"; 
-}
-
-@Html.Partial("NavbarPartial")
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 mx-auto">
@@ -14,12 +9,12 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md">
-                                            <select tabindex="2" class="form-control" name="city">
-                                                @if(ViewBag.Locations != null)
+                                            <select tabindex="2" class="form-control" name="category">
+                                                @if(ViewBag.Cats != null)
                                                 {
-                                                    @foreach(var business in ViewBag.Locations)
+                                                    @foreach(var category in ViewBag.Cats)
                                                     {
-                                                        <option value="@business.City">@business.City</option>
+                                                        <option value="@category.Category">@category.Category</option>
                                                     }
                                                 }
                                             </select>
@@ -36,7 +31,6 @@
             </div>
         </div>
     </div>
-
     <h3>Results</h3>
 
     @if(ViewBag.noResults != null)
@@ -46,7 +40,5 @@
     <form>
         <input type="submit" class="btn btn-outline-primary" asp-action="NewBiz" asp-controller="Business" value="Add a business">
     </form>
-    
 </div>
-
 @Html.Partial("FooterPartial")

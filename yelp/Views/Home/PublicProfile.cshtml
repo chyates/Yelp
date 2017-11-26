@@ -1,9 +1,11 @@
-@if(ViewBag.User != null)
-{
-    @Html.Partial("NavbarPartial");
+@{
+    ViewData["Title"] = "Yodel | Profile"; 
 }
 
-<div class="container-fluid">
+@Html.Partial("NavbarPartial")
+
+
+<div id="prof-container" class="container-fluid">
     <h2>@ViewBag.User.FirstName</h2>
     <h4>@ViewBag.StateName</h4>
 
@@ -21,3 +23,5 @@
         <p>No recent activity</p>
     }
 </div>
+
+@Html.Partial("FooterPartial")

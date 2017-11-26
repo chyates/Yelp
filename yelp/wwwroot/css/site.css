@@ -230,8 +230,9 @@ footer.footer {
 
 /* CSS for rest of homepage */
 #home-header {
-    background-color: white;
+    background-color:var(--pink);
     padding: 2rem;
+    /* opacity: 0.7; */
     /* margin-left: 12rem; */
 }
 
@@ -239,20 +240,20 @@ footer.footer {
     width: 200px;
     height: 150px;
     opacity: 0.9;
-    background-color:#e9ecef;
+    /* background-color:#e9ecef; */
     margin-left: 20rem;
 }
 
 #log-reg-button {
     /* background-color: var(--yellow); */
-    border-color: var(--yellow);
-    color: black;
+    border-color: var(--orange);
+    color: white;
     border-radius: 2px;
 }
 
 #header-logout-button {
-    border-color: var(--yellow);
-    color: black;
+    border-color: var(--lightblue);
+    color: white;
     border-radius: 2px;
 }
 #header-city-search {
@@ -278,7 +279,7 @@ footer.footer {
     color: white;
 }
 .background-rounded {
-    background-color: var(--secondary);
+    background-color: var(--gray);
     border-color: var(--orange);
     border-radius: 8px;
 }
@@ -286,6 +287,20 @@ footer.footer {
 #index-container {
     background-color: var(--lightblue);
     padding: 4rem;
+}
+
+#prof-container {
+    background-color: var(--lightblue);
+    padding: 4rem;
+    margin: 0;
+    border: 0;
+}
+
+#new-biz-container {
+    background-color: var(--lightblue);
+    /* padding: 4rem; */
+    margin: 0;
+    border: 0;
 }
 
 .text-orange {
@@ -315,7 +330,7 @@ footer.footer {
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 :root{
-    --blue:#008cba;
+    --blue:var(--pink);
     --indigo:#6610f2;
     --purple:#4a2156;
     --pink:#bc2731;
@@ -331,7 +346,7 @@ footer.footer {
     --white:#fff;
     --gray:#888;
     --gray-dark:#333;
-    --primary:#008cba;
+    --primary:var(--pink);
     --secondary:#eee;
     --success:#43ac6a;
     --info:#5bc0de;
@@ -367,16 +382,16 @@ footer.footer {
 }
 
 .btn-outline-primary {
-    color: #008cba;
+    color: var(--pink);
     background-color: transparent;
     background-image: none;
-    border-color: #008cba;
+    border-color: var(--pink);
   }
   
   .btn-outline-primary:hover {
     color: #fff;
-    background-color: #008cba;
-    border-color: #008cba;
+    background-color: var(--yellow);
+    border-color: var(--pink);
   }
   
   .btn-outline-primary:focus, .btn-outline-primary.focus {
@@ -385,15 +400,15 @@ footer.footer {
   }
   
   .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #008cba;
+    color: var(--pink);
     background-color: transparent;
   }
   
   .btn-outline-primary:not([disabled]):not(.disabled):active, .btn-outline-primary:not([disabled]):not(.disabled).active,
   .show > .btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #008cba;
-    border-color: #008cba;
+    background-color: var(--pink);
+    border-color: var(--pink);
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
   }
@@ -401,7 +416,7 @@ footer.footer {
 .jumbotron {
 padding: 2rem 2rem;
 /* margin-bottom: 2rem; */
-background-color: #eee;
+background-color: var(--yellow);
 border-radius: 0;
 }
 
@@ -415,5 +430,17 @@ border-radius: 0;
 
 #footer-pic {
     width: 30%;
-    margin-top: 2%;
+    /* margin-top: 3%; */
+}
+
+#navbar-top {
+    /* background: #0069AA; */
+    margin: 0;
+    margin-bottom: 0px;
+    border: 0;
+    /* background-color: var(--pink); */
+}
+
+#accordion {
+    width: 50%;
 }

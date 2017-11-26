@@ -3,7 +3,9 @@
     ViewData["Title"] = "Yodel | Add a Business"; 
 }
 
+@Html.Partial("NavbarPartial")
 
+<div id="new-biz-container" class="container-fluid">
 <div class="row">
     <div class="col-md-12 mx-auto">
         <div class="panel p-5">
@@ -133,6 +135,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <!-- Modal Forms for Category and Subcategory -->
 <div class="row">
@@ -205,3 +208,5 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("FooterPartial")

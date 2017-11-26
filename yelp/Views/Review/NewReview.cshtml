@@ -3,6 +3,11 @@
     ViewData["Title"] = "Yodel | Review"; 
 }
 
+@if(ViewBag.User != null)
+{
+    @Html.Partial("NavbarPartial");
+}
+
 
 <div class="row">
     <div class="col-md-11 mx-auto">
@@ -28,3 +33,4 @@
     </div>
 </div>
 
+@Html.Partial("FooterPartial")

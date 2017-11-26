@@ -138,7 +138,10 @@ namespace yelp.Controllers
             }
             List<BusCategory> Categories = _context.Categories.OrderBy(cat => cat.Category).ToList();
             List<BusCategoryType>CategoryTypes = _context.CategoryTypes.OrderBy(cat => cat.CategoryType).ToList();
+            int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
 
+            ViewBag.User = currentUser;
             ViewBag.Categories = Categories;
             ViewBag.CategoryTypes = CategoryTypes;
             return View("NewBusiness");

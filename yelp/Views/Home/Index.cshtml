@@ -229,6 +229,7 @@
 {
     @Html.Partial("NavbarPartial");
 }
+
 <div id="index-container" class="container-fluid">
     <div class="row">
         <h3>Recent Businesses</h3>
@@ -253,7 +254,7 @@
             @foreach(var business in ViewBag.Locations)
             {
                     <div class="col-4">
-                        <a href="biz/city/@business.City.Replace(" ", "_")"><button class="btn btn-outline-primary">@business.City</button></a>
+                        <a href="/biz/city/@business.City.Replace(" ", "_")"><button id="header-city-search" class="btn btn-outline-primary">@business.City</button></a>
                     </div>
             }
         </div>
@@ -271,7 +272,4 @@
             }
         }
 </div>
-@if(ViewBag.User != null)
-{
-    @Html.Partial("FooterPartial");
-}
+@Html.Partial("FooterPartial");

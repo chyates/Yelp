@@ -3,6 +3,12 @@
     ViewData["Title"] = "Yodel | Add Properties to @ViewBag.Biz.Name"; 
 }
 
+@if(ViewBag.User != null)
+{
+    @Html.Partial("NavbarPartial");
+}
+
+
 <div class="row">
     <div class="col-md-12 mx-auto">
         <div class="panel p-5">
@@ -198,3 +204,5 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("FooterPartial")
