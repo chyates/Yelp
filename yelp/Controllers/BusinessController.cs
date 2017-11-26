@@ -152,7 +152,7 @@ namespace yelp.Controllers
         [Route("/biz/create")]
         [ExportModelState]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBiz(NewBizViewModel MainVM, IFormFile ImageFile)
+        public async Task<IActionResult> CreateBiz(NewBizViewModel MainVM)
         {
             if (checkLogStatus() == false)
             {
@@ -200,37 +200,41 @@ namespace yelp.Controllers
 
             // the new business saved correctly -- save the image to a folder with the biz ID
             // and update the business record with the link
-            if (ImageFile != null && ImageFile.Length > 0)
+            
+            if (bizView.ImageFiles != null)
             {
-                var parsedContentDisposition = ContentDispositionHeaderValue.Parse(ImageFile.ContentDisposition);
-                string _fileName = parsedContentDisposition.FileName.Value.Trim();
-                string _fileExtension = Path.GetExtension(_fileName);
-                BizImageLinkImportModel newFileNameVM = new BizImageLinkImportModel();
-                newFileNameVM.FileName = _fileName;
-                newFileNameVM.FileExtension = _fileExtension;
-                if (TryValidateModel(newFileNameVM))
+                // full path to the file in the temp location
+                var filePath = Path.GetTempFileName();
+
+                if (bizView.ImageFiles.Length > 0)
                 {
-                    // filename is in valid format
+                    var parsedContentDisposition = ContentDispositionHeaderValue.Parse(bizView.ImageFiles.ContentDisposition);
+                    string _fileName = parsedContentDisposition.FileName.Value.Trim();
+                    string _fileExtension = Path.GetExtension(_fileName);
+                    BizImageLinkImportModel newFileNameVM = new BizImageLinkImportModel();
+                    newFileNameVM.FileName = _fileName;
+                    newFileNameVM.FileExtension = _fileExtension;
                     var uploadDir = _env.WebRootPath + $@"\img\Biz\{BizId}";
                     if (!Directory.Exists(uploadDir))
                     {
                         Directory.CreateDirectory(uploadDir);
                     }
-                    using (var fileStream = new FileStream(Path.Combine(uploadDir, _fileName), FileMode.Create))
+                    using (var fileStream = new FileStream(Path.Combine(uploadDir, bizView.ImageFiles.FileName), FileMode.Create))
                     {
-                        await ImageFile.CopyToAsync(fileStream);
+                        await bizView.ImageFiles.CopyToAsync(fileStream);
                     }
+                    // save image link to the database
+                    Business UpdateBiz = _context.Businesses.SingleOrDefault(biz => biz.BusinessId == BizId);
+                    string ImagePath = $@"/img/Biz/{BizId}/" + bizView.ImageFiles.FileName;
+                    ImagePath = ImagePath.Replace("\"", "");
+                    ImagePath = ImagePath.Replace("'", "");
+                    UpdateBiz.ImageLink = ImagePath;
+                    _context.SaveChanges();
                 }
-                else
-                {
-                    // filename is not in valid format
-                    AddBusinessImgError();
-                    return RedirectToAction("NewBiz");
-                }
+
             }
-            
             // the business and image were added correctly
-            return RedirectToAction("NewBizProperties", BizId);
+            return RedirectToAction("NewBizProperties", new { biz_id = BizId } );
         }
 
         // POST: /biz/category/create
@@ -352,9 +356,31 @@ namespace yelp.Controllers
                     BusProperties CheckProperties = _context.Properties.SingleOrDefault(biz => biz.BusinessId == biz_id);
                     if (CheckProperties != null)
                     {
-                        // the business already has an existing properties record; throw an error
-                        AddBusPropsError(biz_id);
-                        return RedirectToAction("NewBizProperties");
+                        // the business already has an existing properties record;
+                        // update the record instead of creating a new one
+                        BusProperties updateBizProperty = new BusProperties(BizPropsVM);
+                        CheckProperties.alcohol = updateBizProperty.alcohol;
+                        CheckProperties.ambience = updateBizProperty.ambience;
+                        CheckProperties.bikeparking = updateBizProperty.bikeparking;
+                        CheckProperties.ByApointOnly = updateBizProperty.ByApointOnly;
+                        CheckProperties.caters = updateBizProperty.caters;
+                        CheckProperties.creditcards = updateBizProperty.creditcards;
+                        CheckProperties.delivery = updateBizProperty.delivery;
+                        CheckProperties.goodforTimeOfDay = updateBizProperty.goodforTimeOfDay;
+                        CheckProperties.groupfriendly = updateBizProperty.groupfriendly;
+                        CheckProperties.kidfriendly = updateBizProperty.kidfriendly;
+                        CheckProperties.outdoor = updateBizProperty.outdoor;
+                        CheckProperties.parkwhere = updateBizProperty.parkwhere;
+                        CheckProperties.price = updateBizProperty.price;
+                        CheckProperties.reservations = updateBizProperty.reservations;
+                        CheckProperties.takeout = updateBizProperty.takeout;
+                        CheckProperties.waiter = updateBizProperty.waiter;
+                        CheckProperties.wheelchair = updateBizProperty.wheelchair;
+                        CheckProperties.wifi = updateBizProperty.wifi;
+                        CheckProperties.UpdatedAt = DateTime.Now;
+                        _context.SaveChanges();
+
+                        return RedirectToAction("NewBizHours", new { biz_id = biz_id });
                     }
                 }
                 catch (Exception ex)
@@ -371,7 +397,7 @@ namespace yelp.Controllers
             {
                 return RedirectToAction("NewBizProperties");
             }
-            return RedirectToAction("NewBizHours", biz_id);
+            return RedirectToAction("NewBizHours", new { biz_id = biz_id });
         }
 
         // GET: /biz/{biz_id}/bizHours/new
@@ -415,9 +441,37 @@ namespace yelp.Controllers
                     BusHours CheckHours = _context.Hours.SingleOrDefault(biz => biz.BusinessId == biz_id);
                     if (CheckHours != null)
                     {
-                        // the business already has an existing hours record; throw an error
-                        AddBusHoursError(biz_id);
-                        return RedirectToAction("NewBizHours");
+                        // the business already has an existing hours record
+                        // update the record instead of creating a new one
+                        BusHours updateBizHours = new BusHours(NewBizHrsVM);
+                        CheckHours.AlwaysOpen = updateBizHours.AlwaysOpen;
+                        CheckHours.FriClosed = updateBizHours.FriClosed;
+                        CheckHours.FriCloseTime = updateBizHours.FriCloseTime;
+                        CheckHours.FriOpenTime = updateBizHours.FriOpenTime;
+                        CheckHours.MonClosed = updateBizHours.MonClosed;
+                        CheckHours.MonCloseTime = updateBizHours.MonCloseTime;
+                        CheckHours.MonOpenTime = updateBizHours.MonOpenTime;
+                        CheckHours.SatClosed = updateBizHours.SatClosed;
+                        CheckHours.SatCloseTime = updateBizHours.SatCloseTime;
+                        CheckHours.SatOpenTime = updateBizHours.SatOpenTime;
+                        CheckHours.SunClosed = updateBizHours.SunClosed;
+                        CheckHours.SunCloseTime = updateBizHours.SunCloseTime;
+                        CheckHours.SunOpenTime = updateBizHours.SunOpenTime;
+                        CheckHours.ThuClosed = updateBizHours.ThuClosed;
+                        CheckHours.ThuCloseTime = updateBizHours.ThuCloseTime;
+                        CheckHours.ThuOpenTime = updateBizHours.ThuOpenTime;
+                        CheckHours.TueClosed = updateBizHours.TueClosed;
+                        CheckHours.TueCloseTime = updateBizHours.TueCloseTime;
+                        CheckHours.TueOpenTime = updateBizHours.TueOpenTime;
+                        CheckHours.WedClosed = updateBizHours.WedClosed;
+                        CheckHours.WedCloseTime = updateBizHours.WedCloseTime;
+                        CheckHours.WedOpenTime = updateBizHours.WedOpenTime;
+                        CheckHours.UpdatedAt = DateTime.Now;
+                        _context.SaveChanges();
+                        return RedirectToAction("ViewBiz", new { biz_id = biz_id });
+
+                        // AddBusHoursError(biz_id);
+                        // return RedirectToAction("NewBizHours");
                     }
                 }
                 catch (Exception ex)
@@ -434,7 +488,7 @@ namespace yelp.Controllers
             {
                 return RedirectToAction("NewBizHours");
             }
-            return RedirectToAction("ViewBiz", biz_id);
+            return RedirectToAction("ViewBiz", new { biz_id = biz_id });
         }
 
         // GET: /biz/{biz_id}
@@ -483,8 +537,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.MonOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.MonCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.MonOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.MonCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Tue":
@@ -492,8 +553,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.TueOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.TueCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.TueOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.TueCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Wed":
@@ -501,8 +569,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.WedOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.WedCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.WedOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.WedCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Thu":
@@ -510,8 +585,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.ThuOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.ThuCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.ThuOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.ThuCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Fri":
@@ -519,8 +601,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.FriOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.FriCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.FriOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.FriCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Sat":
@@ -528,8 +617,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.SatOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.SatCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.SatOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.SatCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
                 case "Sun":
@@ -537,8 +633,15 @@ namespace yelp.Controllers
                     { todayClosed = true; }
                     else
                     {
-                        _opentime = (DateTime)CurrBiz.BusinessHours.SunOpenTime;
-                        _closetime = (DateTime)CurrBiz.BusinessHours.SunCloseTime;
+                        try
+                        {
+                            _opentime = (DateTime)CurrBiz.BusinessHours.SunOpenTime;
+                            _closetime = (DateTime)CurrBiz.BusinessHours.SunCloseTime;
+                        }
+                        catch
+                        {
+                            todayClosed = true;
+                        }
                     }
                     break;
             }
