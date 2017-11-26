@@ -128,6 +128,9 @@ namespace yelp.Models
         [MaxLength(255)]
         [RegularExpression(Constants.REGEX_ALL_EXCEPT_SENSITIVE, ErrorMessage = Constants.REGEX_ALL_MESSAGE)]
         public string Website { get; set; }
+
+        [Display(Name = "File Upload")]
+        public IFormFile ImageFiles { get; set; }
     }
 
     public class BizImageLinkImportModel : BaseEntity
@@ -136,7 +139,7 @@ namespace yelp.Models
         [Required]
         [MinLength(2)]
         [MaxLength(251)]
-        [RegularExpression(Constants.REGEX_ALL_EXCEPT_SENSITIVE, ErrorMessage = Constants.REGEX_ALL_MESSAGE)]
+        [RegularExpression(Constants.REGEX_NOT_SINGLEQUOTE, ErrorMessage = Constants.REGEX_NOT_SINGLEQUOTE_MESSAGE)]
         public string FileName { get; set; }
 
         [Display(Name = "Extension")]
