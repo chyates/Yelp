@@ -101,8 +101,8 @@ namespace yelp.Controllers
         }
 
         [HttpGet]
-        [Route("/search/all")]
-        public IActionResult SearchAll()
+        [Route("/biz/city/{city}")]
+        public IActionResult CityList(string city)
         {
             if (checkLogStatus() == false)
             {
@@ -112,10 +112,11 @@ namespace yelp.Controllers
             {
                 int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
                 User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
-                List<BusCategory> allCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
-                List<Business> allLocs = _context.Businesses.GroupBy(b => b.State).Select(b => b.FirstOrDefault()).ToList();
+                // List<BusCategory> allCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
+                List<Business> allLocs = _context.Businesses.Include(b => b.Category).Where(b => b.City == city).ToList();
 
-                ViewBag.AllCats = allCats;
+                ViewBag.City = city;
+                // ViewBag.AllCats = allCats;
                 ViewBag.AllLocs = allLocs;
                 ViewBag.User = currentUser;
 

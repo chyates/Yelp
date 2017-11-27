@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Yodel | Search"; 
+}
+
+@Html.Partial("NavbarPartial")
+
+<div id="city-biz-container" class="container-fluid">
+    <h3>Businesses in @ViewBag.City</h3>
+    @foreach(var business in ViewBag.AllLocs)
+    {
+        <p><a href="/biz/@business.BusinessId">@business.Name</a>: <span class="text-purple font-weight-bold">@business.Category.Category</span></p>
+    }
+</div>
+
+@Html.Partial("FooterPartial")

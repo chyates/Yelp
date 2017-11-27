@@ -5,244 +5,244 @@
 
 @Html.Partial("NavbarPartial")
 
-
-<div class="row">
-    <div class="col-md-12 mx-auto">
-        <div class="panel p-5">
-            <div class="panel-body">
-                <h1 class="mb-4 text-orange">When is Your Business Open?</h1>
-                <div class="row col-md-12">
-                    <h4 class="col-md-12 p-0">Business Name: @ViewBag.Biz.Name</h4>
+<div id="biz-hours-container" class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="panel p-5">
+                <div class="panel-body">
+                    <h1 class="mb-4 text-orange">When is Your Business Open?</h1>
                     <div class="row col-md-12">
-                        <span class="align-baseline mr-2 font-weight-bold">Category: @ViewBag.Biz.Category.Category</span>
-                        @{
-                            if (ViewBag.Biz.CategoryTypeId != null)
-                            {
-                                <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
+                        <h4 class="col-md-12 p-0">Business Name: @ViewBag.Biz.Name</h4>
+                        <div class="row col-md-12">
+                            <span class="align-baseline mr-2 font-weight-bold">Category: @ViewBag.Biz.Category.Category</span>
+                            @{
+                                if (ViewBag.Biz.CategoryTypeId != null)
+                                {
+                                    <span class="align-text-bottom"> (@ViewBag.Biz.CategoryType.CategoryType)</span>
+                                }
                             }
-                        }
+                        </div>
                     </div>
+                    <form asp-controller="Business" asp-action="CreateBizHours" method="POST" class="mt-5 mb-5">
+                        <div class="row col-md-12">
+                            <div class="col-md-4 p-0">
+                                <div class="col-md-12 form-group">
+                                    <div class="row p-5">
+                                        <label asp-for="AlwaysOpen" class="form-check-label font-weight-bold">
+                                            <input asp-for="AlwaysOpen" tabindex="1" class="form-check-input">
+                                            <span class="ml-2">Is your business open 24 hours?</span>
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="AlwaysOpen" class="col-md-12 text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 p-0">
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Monday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="MonClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="MonClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="MonOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="MonOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="MonOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="MonCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="MonCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="MonCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Tuesday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="TueClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="TueClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="TueOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="TueOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="TueOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="TueCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="TueCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="TueCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Wednesday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="WedClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="WedClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="WedOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="WedOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="WedOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="WedCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="WedCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="WedCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Thursday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="ThuClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="ThuClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="ThuOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="ThuOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="ThuOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="ThuCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="ThuCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="ThuCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Friday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="FriClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="FriClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="FriOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="FriOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="FriOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="FriCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="FriCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="FriCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Saturday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="SatClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="SatClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="SatOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="SatOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="SatOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="SatCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="SatCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="SatCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="container d-flex p-0 m-0">
+                                        <div class="col-md-2 align-self-center">
+                                            <h5>Sunday</h5>
+                                        </div>
+                                        <div class="col-md-2 align-self-center">
+                                            <label asp-for="SunClosed" class="form-check-label font-weight-bold">
+                                                <input asp-for="SunClosed" tabindex="1" class="form-check-input">
+                                                <span class="ml-1">Closed?</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="SunOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
+                                                <input asp-for="SunOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
+                                                <span asp-validation-for="SunOpenTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 align-self-center">
+                                            <div class="row justify-content-center">
+                                                <label asp-for="SunCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
+                                                <input asp-for="SunCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
+                                                <span asp-validation-for="SunCloseTime" class="col-md-12 text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>                                
+                            </div>
+                        </div>
+                        <div class="row col-md-12 mt-5 mb-5">
+                            <div class="form-group col-sm-6 col-md-3 mx-auto">
+                                <input type="submit" tabindex="18" class="form-control btn btn-login" value="SUBMIT">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <form asp-controller="Business" asp-action="CreateBizHours" method="POST" class="mt-5 mb-5">
-                    <div class="row col-md-12">
-                        <div class="col-md-4 p-0">
-                            <div class="col-md-12 form-group">
-                                <div class="row p-5">
-                                    <label asp-for="AlwaysOpen" class="form-check-label font-weight-bold">
-                                        <input asp-for="AlwaysOpen" tabindex="1" class="form-check-input">
-                                        <span class="ml-2">Is your business open 24 hours?</span>
-                                    </label>
-                                </div>
-                                <span asp-validation-for="AlwaysOpen" class="col-md-12 text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-8 p-0">
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Monday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="MonClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="MonClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="MonOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="MonOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="MonOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="MonCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="MonCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="MonCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Tuesday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="TueClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="TueClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="TueOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="TueOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="TueOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="TueCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="TueCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="TueCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Wednesday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="WedClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="WedClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="WedOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="WedOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="WedOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="WedCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="WedCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="WedCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Thursday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="ThuClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="ThuClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="ThuOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="ThuOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="ThuOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="ThuCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="ThuCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="ThuCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Friday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="FriClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="FriClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="FriOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="FriOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="FriOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="FriCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="FriCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="FriCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Saturday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="SatClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="SatClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="SatOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="SatOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="SatOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="SatCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="SatCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="SatCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="container d-flex p-0 m-0">
-                                    <div class="col-md-2 align-self-center">
-                                        <h5>Sunday</h5>
-                                    </div>
-                                    <div class="col-md-2 align-self-center">
-                                        <label asp-for="SunClosed" class="form-check-label font-weight-bold">
-                                            <input asp-for="SunClosed" tabindex="1" class="form-check-input">
-                                            <span class="ml-1">Closed?</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="SunOpenTime" class="col-md-5 col-form-label font-weight-bold"><small>Opens @@</small></label>
-                                            <input asp-for="SunOpenTime" type="time" tabindex="2" class="col-md-6 form-control" value="09:00">
-                                            <span asp-validation-for="SunOpenTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 align-self-center">
-                                        <div class="row justify-content-center">
-                                            <label asp-for="SunCloseTime" class="col-md-5 col-form-label font-weight-bold"><small>Closes @@</small></label>
-                                            <input asp-for="SunCloseTime" type="time" tabindex="2" class="col-md-6 form-control" value="22:00">
-                                            <span asp-validation-for="SunCloseTime" class="col-md-12 text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            
-
-                    </div>
-                    <div class="row col-md-12 mt-5 mb-5">
-                        <div class="form-group col-sm-6 col-md-3 mx-auto">
-                            <input type="submit" tabindex="18" class="form-control btn btn-login" value="SUBMIT">
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

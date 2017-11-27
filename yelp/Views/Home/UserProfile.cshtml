@@ -75,8 +75,15 @@
                     @foreach(var review in ViewBag.UserReviews)
                     {
                         <h4><a class="text-purple" href="/biz/@review.BusinessId">@review.Business.Name</a></h4>
-                        <p>@review.ReviewText</p>
-                        <a href="/users/@ViewBag.User.UserId/reviews/@review.ReviewId/delete">Delete</a>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>@review.ReviewText</p>
+                            </div>
+                            <div class="col-md-3">
+                                 <a class="text-orange" href="/users/@ViewBag.User.UserId/reviews/@review.ReviewId/delete">Delete</a>
+                            </div>
+                        </div>
+                        
                     }
                 </div>
             </div>

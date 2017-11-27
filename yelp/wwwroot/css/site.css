@@ -248,13 +248,17 @@ footer.footer {
     /* background-color: var(--yellow); */
     border-color: var(--orange);
     color: white;
-    border-radius: 2px;
+    /* border-radius: 15px; */
+}
+
+.btn-outline-primary {
+    border-radius: 15px;
 }
 
 #header-logout-button {
     border-color: var(--lightblue);
     color: white;
-    border-radius: 2px;
+    border-radius: 15px;
 }
 #header-city-search {
     border-color: var(--purple);
@@ -283,13 +287,24 @@ footer.footer {
     border-radius: 8px;
 }
 
-#index-container {
+#index-container, #city-biz-container {
     background-color: var(--lightblue);
     padding: 4rem;
+    margin: 0;
+    border: 0;
 }
 
 .home-row {
     padding: 1rem;
+}
+
+#review-box {
+    background-color: var(--yellow);
+}
+
+#review-header, #review-footer {
+    background-color: var(--secondary);
+    margin: 0;
 }
 
 #prof-container {
@@ -309,19 +324,35 @@ footer.footer {
     padding: 5px;
 }
 
-#new-biz-container, #biz-container, #review-container {
+#new-biz-container, #biz-container, #review-container, #biz-hours-container, #biz-props-container {
     background-color: var(--lightblue);
-    /* padding: 4rem; */
     margin: 0;
     border: 0;
 }
 
-/* #biz-container {
+/* #city-biz-container {
     background-color: var(--lightblue);
-    /* padding: 4rem; */
     margin: 0;
     border: 0;
 } */
+
+#view-biz-map, #biz-map-details {
+    background-color: var(--secondary);
+}
+
+.card-header {
+    border-bottom: none;
+    border: 0;
+    background-color: var(--secondary);
+}
+
+#biz-map-details {
+    padding: 1rem;
+}
+
+#biz-map {
+    background-color: white;
+}
 
 .text-orange {
     color: var(--orange);
@@ -348,6 +379,10 @@ footer.footer {
     color: var(--pink);
 }
 
+.text-brown {
+    color: var(--brown);
+}
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 :root{
     --blue:var(--pink);
@@ -356,6 +391,7 @@ footer.footer {
     --pink:#bc2731;
     --red:#F04124;
     --orange:#f56120;
+    --brown: #563021;
     --lightorange: #fdb797;
     --darkorange: #F04124;
     --yellow:#ffd454;
