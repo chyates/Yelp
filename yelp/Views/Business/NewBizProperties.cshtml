@@ -1,12 +1,9 @@
 @model yelp.Models.BizPropertiesViewModel
 @{
-    ViewData["Title"] = "Yodel | Add Properties to @ViewBag.Biz.Name"; 
+    ViewData["Title"] = "Yodel | Add Properties"; 
 }
 
-@if(ViewBag.User != null)
-{
-    @Html.Partial("NavbarPartial");
-}
+@Html.Partial("NavbarPartial")
 
 
 <div class="row">

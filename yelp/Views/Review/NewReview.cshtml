@@ -3,30 +3,35 @@
     ViewData["Title"] = "Yodel | Review"; 
 }
 
-@if(ViewBag.User != null)
-{
-    @Html.Partial("NavbarPartial");
-}
+@Html.Partial("NavbarPartial")
 
-
-<div class="row">
-    <div class="col-md-11 mx-auto">
-        <div class="panel p-5">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="row col-md-12">
-                        <h3>@ViewBag.thisBiz.Name</h3>
+<div class="container-fluid" id="review-container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="panel p-5">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="row col-md-12">
+                            <h3>@ViewBag.thisBiz.Name</h3>
+                        </div>
+                        <form asp-controller="Review" asp-action="CreateReview" method="POST">
+                            <div class="form-group row">
+                                <label class="font-weight-bold form-check-label col-md-2" asp-for="Rating"></label>
+                                <div class="form-check-inline">
+                                    <input type="radio" value="1" name="Rating"> 1
+                                    <input type="radio" value="2" name="Rating"> 2
+                                    <input type="radio" value="3" name="Rating"> 3
+                                    <input type="radio" value="4" name="Rating"> 4
+                                    <input type="radio" value="5" name="Rating"> 5<br><br>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="ReviewText" rows="6" cols="70" placeholder="Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees."></textarea><br>
+                            </div>
+                            <input type="submit" class="btn btn-outline-primary" value="Post Review">
+                        </form>
+                        <hr>
                     </div>
-                    <form asp-controller="Review" asp-action="CreateReview" method="POST">
-                        <input type="checkbox" value="1" name="Rating">1
-                        <input type="checkbox" value="2" name="Rating">2
-                        <input type="checkbox" value="3" name="Rating">3
-                        <input type="checkbox" value="4" name="Rating">4
-                        <input type="checkbox" value="5" name="Rating">5<br><br>
-                        <textarea name="ReviewText" rows="6" cols="70" placeholder="Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees."></textarea><br>
-                        <input type="submit" value="Post Review">
-                    </form>
-                    <hr>
                 </div>
             </div>
         </div>

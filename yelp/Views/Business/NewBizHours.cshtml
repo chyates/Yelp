@@ -1,12 +1,9 @@
 @model yelp.Models.BusHoursViewModel
 @{
-    ViewData["Title"] = "Yodel | Add Hours for @ViewBag.Biz.Name"; 
+    ViewData["Title"] = "Yodel | Add Hours"; 
 }
 
-@if(ViewBag.User != null)
-{
-    @Html.Partial("NavbarPartial");
-}
+@Html.Partial("NavbarPartial")
 
 
 <div class="row">

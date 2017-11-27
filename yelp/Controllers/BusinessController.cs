@@ -68,7 +68,7 @@ namespace yelp.Controllers
         }
 
         public BusinessController(
-            YelpContext context, 
+            YelpContext context,
             IHostingEnvironment env,
             IOptions<GoogleMapSettings> googlemapsettings
         )
@@ -137,7 +137,7 @@ namespace yelp.Controllers
                 return RedirectToAction("Index", "Home");
             }
             List<BusCategory> Categories = _context.Categories.OrderBy(cat => cat.Category).ToList();
-            List<BusCategoryType>CategoryTypes = _context.CategoryTypes.OrderBy(cat => cat.CategoryType).ToList();
+            List<BusCategoryType> CategoryTypes = _context.CategoryTypes.OrderBy(cat => cat.CategoryType).ToList();
             int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
             User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
 
@@ -200,7 +200,7 @@ namespace yelp.Controllers
 
             // the new business saved correctly -- save the image to a folder with the biz ID
             // and update the business record with the link
-            
+
             if (bizView.ImageFiles != null)
             {
                 // full path to the file in the temp location
@@ -234,7 +234,7 @@ namespace yelp.Controllers
 
             }
             // the business and image were added correctly
-            return RedirectToAction("NewBizProperties", new { biz_id = BizId } );
+            return RedirectToAction("NewBizProperties", new { biz_id = BizId });
         }
 
         // POST: /biz/category/create
@@ -326,12 +326,17 @@ namespace yelp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
+
             Business CurrBiz = _context.Businesses
                 .Where(biz => biz.BusinessId == biz_id)
                 .Include(biz => biz.Category)
                 .Include(biz => biz.CategoryType)
                 .Include(biz => biz.BusinessProperty)
                 .SingleOrDefault();
+
+            ViewBag.User = currentUser;
             ViewBag.Biz = CurrBiz;
             return View();
         }
@@ -411,13 +416,18 @@ namespace yelp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
+
             Business CurrBiz = _context.Businesses
                 .Where(biz => biz.BusinessId == biz_id)
                 .Include(biz => biz.Category)
                 .Include(biz => biz.CategoryType)
                 .Include(biz => biz.BusinessProperty)
                 .SingleOrDefault();
+
             ViewBag.Biz = CurrBiz;
+            ViewBag.User = currentUser;
             return View();
         }
 
@@ -500,6 +510,9 @@ namespace yelp.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+
+            int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
 
             Business CurrBiz = _context.Businesses
                 .Where(biz => biz.BusinessId == biz_id)
@@ -688,6 +701,7 @@ namespace yelp.Controllers
             ViewBag.Reviews = ReturnedReviews;
             ViewBag.AvgRating = AvgRating;
             ViewBag.CountRatings = CountRatings;
+            ViewBag.User = currentUser;
             return View("ViewBusiness");
         }
 

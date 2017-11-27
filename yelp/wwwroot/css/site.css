@@ -309,12 +309,19 @@ footer.footer {
     padding: 5px;
 }
 
-#new-biz-container {
+#new-biz-container, #biz-container, #review-container {
     background-color: var(--lightblue);
     /* padding: 4rem; */
     margin: 0;
     border: 0;
 }
+
+/* #biz-container {
+    background-color: var(--lightblue);
+    /* padding: 4rem; */
+    margin: 0;
+    border: 0;
+} */
 
 .text-orange {
     color: var(--orange);

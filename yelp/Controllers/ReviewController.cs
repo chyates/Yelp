@@ -72,7 +72,7 @@ namespace yelp.Controllers
                 IEnumerable<int> ReviewOptions = Enumerable.Range(1,5);
                 ViewBag.thisBiz = thisBiz;
                 ViewBag.ReviewOptions = ReviewOptions;
-
+                ViewBag.User = thisUser;
                 return View();
             }
         }

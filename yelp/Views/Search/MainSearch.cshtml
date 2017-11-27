@@ -10,12 +10,12 @@
 <div id="city-container" class="container-fluid">
     <h2 class="text-center text-purple">Search businesses by city, name, or category</h2>
     <div class="row">
-        <div class="col-md-12 mx-auto">
+        <div class="col-md-10 mx-auto">
             <div class="panel p-3">
                 <div class="panel-body">
-                    <form class="form-inline" asp-action="Search" asp-controller="Search" method="POST">
-                        <div class="row col-md-12">
-                            <div class="col-md-4">
+                    <form class="col-md form-inline" asp-action="Search" asp-controller="Search" method="POST">
+                        <div class="row col-md">
+                            <div class="col-md">
                                 <div class="form-group row">
                                     <div class="row">
                                         <div class="col-md">
@@ -26,6 +26,25 @@
                                                 <option value="City">City</option>
                                             </select>
                                             <button class="btn btn-outline-primary" type="submit">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md mx-auto">
+            <div class="panel p-3">
+                <div class="panel-body">
+                    <form class="col-md float-right form-inline">
+                        <div class="row col-md">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <input class="btn btn-outline-primary" type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
                                         </div>
                                     </div>
                                 </div>
@@ -47,5 +66,6 @@
             } 
         </div>
     }
+
 </div>
 @Html.Partial("FooterPartial")

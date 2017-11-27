@@ -284,8 +284,8 @@ namespace yelp.Controllers
             ViewBag.User = currentUser;
         }
         List<Review> allReviews = _context.Reviews.Include(r => r.user).Take(3).ToList();
-        List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).Take(3).ToList();
-        List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
+        List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).OrderByDescending(b => b.UpdatedAt).Take(3).ToList();
+        List<Business> businessLocations = _context.Businesses.OrderByDescending(b => b.UpdatedAt).Distinct().Take(3).ToList();
 
         ViewBag.Businesses = allBusinesses;
         ViewBag.Locations = businessLocations;
