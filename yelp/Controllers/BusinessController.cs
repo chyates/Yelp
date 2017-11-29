@@ -43,6 +43,16 @@ namespace yelp.Controllers
         //  /biz/{biz_id}/biz_photos/upload
         //  /biz/{biz_id}/biz_photos/destroy
         // ########## ROUTES ##########
+        // ########## ROUTES ##########
+        //  /biz/{biz_id}
+        //  /biz/{biz_id}/edit
+        //  /biz/{biz_id}/update
+        //  /biz/{biz_id}/delete
+        //  /biz/{biz_id}/destroy
+        //  /biz/{biz_id}/biz_photos
+        //  /biz/{biz_id}/biz_photos/upload
+        //  /biz/{biz_id}/biz_photos/destroy
+        // ########## ROUTES ##########
 
         private const string LOGGED_IN_ID = "LoggedIn_Id";
         private const string LOGGED_IN_USERNAME = "LoggedIn_Username";
@@ -123,8 +133,6 @@ namespace yelp.Controllers
             ModelState.AddModelError(key, errorMessage);
             return;
         }
-
-
 
         // GET: /biz/new
         [HttpGet]
@@ -704,28 +712,5 @@ namespace yelp.Controllers
             ViewBag.User = currentUser;
             return View("ViewBusiness");
         }
-
-
-
-
-
-        // ########## ROUTES ##########
-        //  /biz/{biz_id}
-        //  /biz/{biz_id}/edit
-        //  /biz/{biz_id}/update
-        //  /biz/{biz_id}/delete
-        //  /biz/{biz_id}/destroy
-        //  /biz/{biz_id}/biz_photos
-        //  /biz/{biz_id}/biz_photos/upload
-        //  /biz/{biz_id}/biz_photos/destroy
-        // ########## ROUTES ##########
-
-
-
-
-
-
-
-
     }
 }

@@ -26,13 +26,7 @@ namespace yelp.Controllers
         //  /
         // ########## ROUTES ##########
 
-        // Dapper connections
-        // private readonly UserFactory userFactory;
-        // private readonly DbConnector _dbConnector;
-
-        // Entity PostGres Code First connection
         private YelpContext _context;
-
         private const string LOGGED_IN_ID = "LoggedIn_Id";
         private const string LOGGED_IN_USERNAME = "LoggedIn_Username";
         private const string LOGGED_IN_FIRSTNAME = "LoggedIn_FirstName";
@@ -256,247 +250,226 @@ namespace yelp.Controllers
             }
             return fullName;
         }
-    //     }
-    // }
+        //     }
+        // }
 
-    public HomeController(YelpContext context)
-    {
-        // Dapper framework connections
-        // _dbConnector = connect;
-        // userFactory = new UserFactory();
-
-        // Entity Framework connections
-        _context = context;
-    }
-
-    // GET: /Home/
-    [HttpGet]
-    [Route("")]
-    [ImportModelState]
-    public IActionResult Index()
-    {
-        int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
-
-        User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
-
-        if (currentUser != null)
+        public HomeController(YelpContext context)
         {
-            ViewBag.User = currentUser;
+
+            // Entity Framework connections
+            _context = context;
         }
-        List<User> allUsers = _context.Users.Take(4).ToList();
-        List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).OrderByDescending(b => b.UpdatedAt).Take(3).ToList();
-        List<Business> businessLocations = _context.Businesses.OrderByDescending(b => b.UpdatedAt).Distinct().Take(4).ToList();
 
-        ViewBag.Businesses = allBusinesses;
-        ViewBag.Locations = businessLocations;
-        ViewBag.RecentReviews = allUsers;
-        return View();
-    }
-
-    // POST: /login
-    [HttpPost]
-    [Route("login")]
-    [ExportModelState]
-    public IActionResult Login(LoginRegFormModel userVM)
-    {
-        if (TryValidateModel(userVM.loginVM))
+        // GET: /Home/
+        [HttpGet]
+        [Route("")]
+        [ImportModelState]
+        public IActionResult Index()
         {
-            try
-            {
-                // Dapper Factory command
-                // User logging_user = userFactory.FindByLogin(userVM.loginVM.Username, userVM.loginVM.Password);
+            int? currentUserId = HttpContext.Session.GetInt32(LOGGED_IN_ID);
+            User currentUser = _context.Users.SingleOrDefault(u => u.UserId == (int)currentUserId);
 
-                // Entity PostGres Code First command
-                // retrieve user by submitted username
-                User logging_user = _context.Users.SingleOrDefault(user => user.Email == userVM.loginVM.Email);
-                // salt the submitted password and hash
-                string SaltedPasswd = userVM.loginVM.Password + logging_user.Salt;
-                var Hasher = new PasswordHasher<User>();
-
-                if (0 != Hasher.VerifyHashedPassword(logging_user, logging_user.Password, SaltedPasswd))
-                {
-                    // the passwords match!
-                    HttpContext.Session.SetInt32(LOGGED_IN_ID, logging_user.UserId);
-                    HttpContext.Session.SetString(LOGGED_IN_USERNAME, userVM.loginVM.Email);
-                    HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, logging_user.FirstName);
-                    return RedirectToAction("Index");
-                }
-                // else (password failed) -- place error in ModelState below
-                AddLoginError();
-            }
-            catch (Exception ex)
+            if (currentUser != null)
             {
-                // the username and password combination were not found
-                AddLoginError();
+                ViewBag.User = currentUser;
             }
+            List<User> allUsers = _context.Users.Take(4).ToList();
+            List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).OrderByDescending(b => b.UpdatedAt).Take(4).ToList();
+            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
+
+            ViewBag.Businesses = allBusinesses;
+            ViewBag.Locations = businessLocations;
+            ViewBag.RecentReviews = allUsers;
+            return View();
         }
-        // if login was not successful, return to index with errors exported in modelstate
-        TempData["login_errors"] = true;
-        return RedirectToAction("Index");
-    }
 
-    // GET: /logout
-    [HttpGet]
-    [Route("logout")]
-    public IActionResult Logout()
-    {
-        HttpContext.Session.Clear();
-        return RedirectToAction("Index");
-    }
-
-    // POST: /register
-    [HttpPost]
-    [Route("register")]
-    [ExportModelState]
-    public IActionResult Register(LoginRegFormModel userVM)
-    {
-        if (TryValidateModel(userVM.registerVM))
+        // POST: /login
+        [HttpPost]
+        [Route("login")]
+        [ExportModelState]
+        public IActionResult Login(LoginRegFormModel userVM)
         {
-            // model validated correctly --> success
-            // confirm that a user does not exist with the selected username
-            try
+            if (TryValidateModel(userVM.loginVM))
             {
-                // Dapper connection commands
-                // User testUser = userFactory.FindByUsername(userVM.registerVM.Username);
-
-                // Entity PostGres Code First command
-                User testUser = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
-                if (testUser != null)
+                try
                 {
-                    // the username currently exists in the database
-                    string key = "Username";
-                    string errorMessage = "This username already exists. Please select another or login.";
-                    ModelState.AddModelError(key, errorMessage);
-                    TempData["errors"] = true;
-                    return RedirectToAction("LandingPage");
+                    // Entity PostGres Code First command
+                    // retrieve user by submitted username
+                    User logging_user = _context.Users.SingleOrDefault(user => user.Email == userVM.loginVM.Email);
+                    // salt the submitted password and hash
+                    string SaltedPasswd = userVM.loginVM.Password + logging_user.Salt;
+                    var Hasher = new PasswordHasher<User>();
+
+                    if (0 != Hasher.VerifyHashedPassword(logging_user, logging_user.Password, SaltedPasswd))
+                    {
+                        // the passwords match!
+                        HttpContext.Session.SetInt32(LOGGED_IN_ID, logging_user.UserId);
+                        HttpContext.Session.SetString(LOGGED_IN_USERNAME, userVM.loginVM.Email);
+                        HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, logging_user.FirstName);
+                        return RedirectToAction("Index");
+                    }
+                    // else (password failed) -- place error in ModelState below
+                    AddLoginError();
+                }
+                catch (Exception ex)
+                {
+                    // the username and password combination were not found
+                    AddLoginError();
                 }
             }
-            catch
-            {
-                // if username was not found - do nothing and proceed
-            }
-            // confirm that a user does not exist with the selected email
-            try
-            {
-                // Dapper connection commands
-                // User testUser = userFactory.FindByEmail(userVM.registerVM.Email);
-
-                // Entity PostGres Code First command
-                User testUser = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
-                if (testUser != null)
-                {
-                    // the email currently exists in the database
-                    string key = "Email";
-                    string errorMessage = "This email address already exists. Please select another or login.";
-                    ModelState.AddModelError(key, errorMessage);
-                    TempData["errors"] = true;
-                    return RedirectToAction("Index");
-                }
-            }
-            catch
-            {
-                // if email was not found - do nothing and proceed
-            }
-            // Dapper factory command
-            // userFactory.Add(userVM.registerVM);
-
-            // Entity PostGres Code First command
-            User NewUser = new User(userVM.registerVM);
-
-            // generate a 128-bit salt using a secure PRNG
-            byte[] newSalt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(newSalt);
-            }
-            string newSaltString = Convert.ToBase64String(newSalt);
-            NewUser.Salt = newSaltString;
-            // hash password
-            string SaltedPasswd = NewUser.Password + newSaltString;
-            PasswordHasher<User> Hasher = new PasswordHasher<User>();
-            NewUser.Password = Hasher.HashPassword(NewUser, SaltedPasswd);
-
-            _context.Users.Add(NewUser);
-            _context.SaveChanges();
-            string userSerialized = JsonConvert.SerializeObject(userVM.registerVM);
-            TempData["user"] = (string)userSerialized;
-
-            // store user id, first name, and username in session
-            // run query to gather id number generated by the database
-            // Dapper connection command
-            // User NewUser = userFactory.FindByUsername(userVM.registerVM.Username);
-
-            // Entity PostGres Code First command
-            User UserFromDb = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
-
-            // login to the application
-            HttpContext.Session.SetInt32(LOGGED_IN_ID, UserFromDb.UserId);
-            HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Email);
-            HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, UserFromDb.FirstName);
+            // if login was not successful, return to index with errors exported in modelstate
+            TempData["login_errors"] = true;
             return RedirectToAction("Index");
         }
-        // model did not validate correctly --> show errors to user
-        TempData["errors"] = true;
-        return RedirectToAction("Index");
-    }
 
-    [HttpGet]
-    [Route("/users/{userId}/settings")]
-    public IActionResult UserProfile(int UserId)
-    {
-        User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == UserId);
-        List<Review> userReviews = _context.Reviews.Include(r => r.Business).Where(r => r.UserId == thisUser.UserId).ToList();
-
-        ViewBag.UserReviews = userReviews;
-        ViewBag.User = thisUser;
-        return View();
-    }
-
-    [HttpGet]
-    [Route("/users/{userId}/profile")]
-    public IActionResult PublicProfile(int UserId)
-    {
-        User thisUser = _context.Users.Include(u => u.Reviews).ThenInclude(r => r.Business).SingleOrDefault(u => u.UserId == UserId);
-
-        // hopefully query above can remove necessity for below
-        List<Review> userReviews = _context.Reviews.Where(r => r.UserId == thisUser.UserId).ToList();
-        string userState = findStateName(thisUser.ZipCode);
-
-        ViewBag.StateName = userState;
-        ViewBag.User = thisUser;
-        ViewBag.UserReviews = userReviews;
-        return View();
-    }
-
-    [HttpPost]
-    [Route("/users/{userId}/settings/update")]
-    public IActionResult UpdateSettings(UserRegViewModel model, int userId)
-    {
-        User upUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userId);
-        if (ModelState.IsValid)
+        // GET: /logout
+        [HttpGet]
+        [Route("logout")]
+        public IActionResult Logout()
         {
-            upUser.FirstName = model.FirstName;
-            upUser.LastName = model.LastName;
-            upUser.Email = model.Email;
-            upUser.Password = model.Password;
-            upUser.ZipCode = model.ZipCode;
-            upUser.UpdatedAt = DateTime.Now;
-            _context.Update(upUser);
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
+        // POST: /register
+        [HttpPost]
+        [Route("register")]
+        [ExportModelState]
+        public IActionResult Register(LoginRegFormModel userVM)
+        {
+            if (TryValidateModel(userVM.registerVM))
+            {
+                // model validated correctly --> success
+                // confirm that a user does not exist with the selected username
+                try
+                {
+                    // Entity PostGres Code First command
+                    User testUser = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
+                    if (testUser != null)
+                    {
+                        // the username currently exists in the database
+                        string key = "Username";
+                        string errorMessage = "This username already exists. Please select another or login.";
+                        ModelState.AddModelError(key, errorMessage);
+                        TempData["errors"] = true;
+                        return RedirectToAction("LandingPage");
+                    }
+                }
+                catch
+                {
+                    // if username was not found - do nothing and proceed
+                }
+                // confirm that a user does not exist with the selected email
+                try
+                {
+                    // Entity PostGres Code First command
+                    User testUser = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
+                    if (testUser != null)
+                    {
+                        // the email currently exists in the database
+                        string key = "Email";
+                        string errorMessage = "This email address already exists. Please select another or login.";
+                        ModelState.AddModelError(key, errorMessage);
+                        TempData["errors"] = true;
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch
+                {
+                    // if email was not found - do nothing and proceed
+                }
+                // Entity PostGres Code First command
+                User NewUser = new User(userVM.registerVM);
+
+                // generate a 128-bit salt using a secure PRNG
+                byte[] newSalt = new byte[128 / 8];
+                using (var rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(newSalt);
+                }
+                string newSaltString = Convert.ToBase64String(newSalt);
+                NewUser.Salt = newSaltString;
+                // hash password
+                string SaltedPasswd = NewUser.Password + newSaltString;
+                PasswordHasher<User> Hasher = new PasswordHasher<User>();
+                NewUser.Password = Hasher.HashPassword(NewUser, SaltedPasswd);
+
+                _context.Users.Add(NewUser);
+                _context.SaveChanges();
+                string userSerialized = JsonConvert.SerializeObject(userVM.registerVM);
+                TempData["user"] = (string)userSerialized;
+
+                // store user id, first name, and username in session
+                // run query to gather id number generated by the database
+
+                // Entity PostGres Code First command
+                User UserFromDb = _context.Users.SingleOrDefault(user => user.Email == userVM.registerVM.Email);
+
+                // login to the application
+                HttpContext.Session.SetInt32(LOGGED_IN_ID, UserFromDb.UserId);
+                HttpContext.Session.SetString(LOGGED_IN_USERNAME, UserFromDb.Email);
+                HttpContext.Session.SetString(LOGGED_IN_FIRSTNAME, UserFromDb.FirstName);
+                return RedirectToAction("Index");
+            }
+            // model did not validate correctly --> show errors to user
+            TempData["errors"] = true;
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("/users/{userId}/settings")]
+        public IActionResult UserProfile(int UserId)
+        {
+            User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == UserId);
+            List<Review> userReviews = _context.Reviews.Include(r => r.Business).Where(r => r.UserId == thisUser.UserId).ToList();
+
+            ViewBag.UserReviews = userReviews;
+            ViewBag.User = thisUser;
+            return View();
+        }
+
+        [HttpGet]
+        [Route("/users/{userId}/profile")]
+        public IActionResult PublicProfile(int UserId)
+        {
+            User thisUser = _context.Users.Include(u => u.Reviews).ThenInclude(r => r.Business).SingleOrDefault(u => u.UserId == UserId);
+
+            string userState = findStateName(thisUser.ZipCode);
+
+            ViewBag.StateName = userState;
+            ViewBag.User = thisUser;
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/users/{userId}/settings/update")]
+        public IActionResult UpdateSettings(UserRegViewModel model, int userId)
+        {
+            User upUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userId);
+            if (ModelState.IsValid)
+            {
+                upUser.FirstName = model.FirstName;
+                upUser.LastName = model.LastName;
+                upUser.Email = model.Email;
+                upUser.Password = model.Password;
+                upUser.ZipCode = model.ZipCode;
+                upUser.UpdatedAt = DateTime.Now;
+                _context.Update(upUser);
+                _context.SaveChanges();
+                return RedirectToAction("UserProfile");
+            }
+            return RedirectToAction("UserProfile");
+        }
+
+        [HttpGet]
+        [Route("/users/{userId}/reviews/{reviewId}/delete")]
+        public IActionResult DeleteReview(int userID, int reviewID)
+        {
+            User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userID);
+            Review thisReview = _context.Reviews.SingleOrDefault(r => r.UserId == userID);
+            _context.Remove(thisReview);
             _context.SaveChanges();
             return RedirectToAction("UserProfile");
         }
-        return RedirectToAction("UserProfile");
     }
-
-    [HttpGet]
-    [Route("/users/{userId}/reviews/{reviewId}/delete")]
-    public IActionResult DeleteReview(int userID, int reviewID)
-    {
-        User thisUser = _context.Users.Include(u => u.Reviews).SingleOrDefault(u => u.UserId == userID);
-        Review thisReview = _context.Reviews.SingleOrDefault(r => r.UserId == userID);
-        _context.Remove(thisReview);
-        _context.SaveChanges();
-        return RedirectToAction("UserProfile");
-    }
-}
 }

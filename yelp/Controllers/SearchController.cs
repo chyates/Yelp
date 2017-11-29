@@ -86,8 +86,6 @@ namespace yelp.Controllers
                         return View(CategorySearch);
                     }
                 }
-
-                // List<Business> model = _context.Businesses.ToList();
                 return View();
             }
         }
@@ -112,11 +110,9 @@ namespace yelp.Controllers
             {
                 int? currUserID = HttpContext.Session.GetInt32(LOGGED_IN_ID);
                 User currentUser = _context.Users.SingleOrDefault(u => u.UserId == currUserID);
-                // List<BusCategory> allCats = _context.Categories.OrderBy(c => c.Category).Distinct().ToList();
                 List<Business> allLocs = _context.Businesses.Include(b => b.Category).Where(b => b.City == city).ToList();
 
                 ViewBag.City = city;
-                // ViewBag.AllCats = allCats;
                 ViewBag.AllLocs = allLocs;
                 ViewBag.User = currentUser;
 

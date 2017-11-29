@@ -47,7 +47,6 @@ namespace yelp.Controllers
                 return true;
             }
         }
-
         public ReviewController(YelpContext context)
         {
             // Entity Framework connections
@@ -107,7 +106,7 @@ namespace yelp.Controllers
                     int biz_Id = bizId;
                     _context.Add(newReview);
                     _context.SaveChanges();
-                    return RedirectToAction("ViewBiz", "Business", biz_Id);
+                    return RedirectToAction("ViewBiz", "Business", new { biz_id = biz_Id });
                 }
                 return RedirectToAction("NewReview");
             }
