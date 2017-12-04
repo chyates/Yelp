@@ -230,8 +230,10 @@ footer.footer {
 
 /* CSS for rest of homepage */
 #home-header {
-    background-color:var(--pink);
+    /* background-color:var(--pink); */
     padding: 2rem;
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(233,32,12,1) 0%, rgba(188,39,49,1) 100%); /* safari5.1+,chrome10+ */
+    
     /* opacity: 0.7; */
     /* margin-left: 12rem; */
 }
@@ -288,14 +290,22 @@ footer.footer {
 }
 
 #index-container, #city-biz-container {
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
     padding: 4rem;
     margin: 0;
     border: 0;
 }
 
+
 .home-row {
     padding: 1rem;
+}
+
+.fa fa-check {
+    width: 9%;
+    height: 30%;
+    margin: 1rem;
 }
 
 #review-box {
@@ -308,13 +318,15 @@ footer.footer {
 }
 
 #prof-container {
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
     padding: 4rem;
     margin: 0;
     border: 0;
 }
 #settings {
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
     padding: 3rem;
     margin: 0;
     border: 0;
@@ -325,7 +337,8 @@ footer.footer {
 }
 
 #new-biz-container, #biz-container, #review-container, #biz-hours-container, #biz-props-container {
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
     margin: 0;
     border: 0;
 }
@@ -385,7 +398,7 @@ footer.footer {
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 :root{
-    --blue:var(--pink);
+    --blue:var#008cba;
     --indigo:#6610f2;
     --purple:#4a2156;
     --pink:#bc2731;
@@ -451,8 +464,8 @@ footer.footer {
   }
   
   .btn-outline-primary:focus, .btn-outline-primary.focus {
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
-            box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(240,65,36, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(240,65,36, 0.5);
   }
   
   .btn-outline-primary.disabled, .btn-outline-primary:disabled {
@@ -465,8 +478,8 @@ footer.footer {
     color: #fff;
     background-color: var(--pink);
     border-color: var(--pink);
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
-            box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.5);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(240,65,36, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(240,65,36, 0.5);
   }
 
 .jumbotron {
@@ -481,7 +494,8 @@ border-radius: 0;
 }
 
 #settings {
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
 }
 
 #settings-review {
@@ -490,7 +504,8 @@ border-radius: 0;
 
 #city-container {
     padding: 2rem;
-    background-color: var(--lightblue);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
 }
 
 #test1 {

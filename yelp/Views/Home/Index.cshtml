@@ -240,7 +240,8 @@
             @foreach(var business in ViewBag.Businesses)
             {
                 <div class="col-md">
-                    <a href="/biz/@business.BusinessId">@business.Name</a>
+                    <img class="img img-fluid img-thumbnail" src="@business.ImageLink"/><br>
+                    <a class="text-center" href="/biz/@business.BusinessId">@business.Name</a>
                 </div>
             }
         </div>
@@ -251,10 +252,10 @@
         @if(@ViewBag.Locations != null)
         {
         <div class="row">
-            @foreach(var business in ViewBag.Locations)
+            @foreach(var location in ViewBag.Locations)
             {
                     <div class="col-4">
-                        <a href="/biz/city/@business.City.Replace(" ", "_")"><button id="header-city-search" class="btn btn-outline-primary">@business.City</button></a>
+                        <a href="/biz/city/@location.Replace(" ", "_")"><button id="header-city-search" class="btn btn-outline-primary">@location</button></a>
                     </div>
             }
         </div>

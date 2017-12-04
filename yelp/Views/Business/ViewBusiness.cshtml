@@ -26,7 +26,7 @@
                             </div>
                             <div id="view-biz-map" class="card text-left col-md-12 mt-3">
                                 <div class="card-header p-3">
-                                    <iframe id="biz-map" class="col-md-12 mx-auto" src="//www.google.com/maps/embed/v1/place?q=@ViewBag.MapAddress
+                                    <iframe id="biz-map" class="col-md-12 mx-auto" src="https://www.google.com/maps/embed/v1/place?q=@ViewBag.MapAddress
                                         &zoom=13
                                         &key=@ViewBag.GoogleApiKey">
                                     </iframe>
@@ -90,6 +90,32 @@
                                             <div class="card-block">
                                                 <p class="card-text">@review.ReviewText</p>
                                                 <h6 class="text-right text-pink">@review.Rating Stars</h6>
+                                            </div>
+                                            <div id="review-vote">
+                                                <small>Was this review...?</small>
+                                                <div class="row">
+                                                    <div class="col-md">
+                                                        <form class="form-inline">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                                                <span class="fa fa-check" aria-hidden="true"></span> Useful
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md">
+                                                        <form class="form-inline">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                                                <span class="fa fa-heart" aria-hidden="true"></span> Funny
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md">
+                                                        <form class="form-inline">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                                                <span class="fa fa-star" aria-hidden="true"></span> Cool
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div id="review-footer" class="card-footer">
                                                 <small class="text-brown">Posted @review.CreatedAt</small>

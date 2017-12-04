@@ -37,7 +37,6 @@ namespace yelp.Models
         [Display(Name = "Review")]
         [Required]
         [MinLength(10)]
-        [MaxLength(255)]
         [RegularExpression(Constants.REGEX_ALL_EXCEPT_SENSITIVE, ErrorMessage = Constants.REGEX_ALL_MESSAGE)]
         public string ReviewText { get; set; }
 

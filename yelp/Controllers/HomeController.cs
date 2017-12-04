@@ -275,7 +275,7 @@ namespace yelp.Controllers
             }
             List<User> allUsers = _context.Users.Take(4).ToList();
             List<Business> allBusinesses = _context.Businesses.Include(b => b.Category).OrderByDescending(b => b.UpdatedAt).Take(4).ToList();
-            List<Business> businessLocations = _context.Businesses.OrderBy(b => b.City).Distinct().Take(3).ToList();
+            List<String> businessLocations = _context.Businesses.Select(b => b.City).Distinct().Take(4).ToList();
 
             ViewBag.Businesses = allBusinesses;
             ViewBag.Locations = businessLocations;

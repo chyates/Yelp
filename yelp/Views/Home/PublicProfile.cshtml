@@ -9,7 +9,7 @@
     <h2>@ViewBag.User.FirstName @ViewBag.User.LastName[0].</h2>
     <h4>@ViewBag.StateName</h4>
 
-    @if(ViewBag.UserReviews != null)
+    @if(ViewBag.User.Reviews != null)
     {
         <h5>Recent reviews:</h5>
         @foreach (var review in ViewBag.User.Reviews)
