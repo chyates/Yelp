@@ -5,8 +5,7 @@
 #regContainer{
     margin-top: 3%;  
 }
-#login-form label,
-#register-form label {
+#login-form label, #register-form label {
     font-size: 80%;
     font-weight: bold;
     margin-bottom: 0px;
@@ -135,8 +134,6 @@
     color: #fff;
     border-color: #2d92a9;
 }
-
-
 
 
 /* Landing Page CSS */
@@ -493,6 +490,9 @@ border-radius: 0;
     margin: 20px;
 }
 
+#navbar-bottom {
+    background-color: var(--white);
+}
 #settings {
     background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
     background:-webkit-radial-gradient(center, ellipse cover, rgba(238,238,238,1) 0%, rgba(228,243,245,1) 100%);
@@ -535,6 +535,7 @@ border-radius: 0;
 
 #nav-1, #nav-2, #nav-3, #nav-4 {
     color: var(--purple);
+    
 }
 
 #accordion {
