@@ -11,7 +11,7 @@
 
     @if(ViewBag.User.Reviews != null)
     {
-        <h5>Recent reviews:</h5>
+        <h5 class="text-green">Recent reviews:</h5>
         @foreach (var review in ViewBag.User.Reviews)
         {
             <p>"@review.ReviewText"</p>

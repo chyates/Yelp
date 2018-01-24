@@ -22,8 +22,8 @@ namespace yelp
             // services.Configure<MySqlOptions>(Configuration.GetSection("DBInfo"));
             // Dapper Factory connection
             // services.AddScoped<DbConnector>();
-            services.AddDbContext<YelpContext>(MySqlOptions => MySqlOptions.UseMySQL(Configuration["DBInfo:ConnectionString"]));
-            // services.AddDbContext<YelpContext>(options => options.UseNpgsql(Configuration["PostGresInfo:ConnectionString"]));
+            // services.AddDbContext<YelpContext>(MySqlOptions => MySqlOptions.UseMySQL(Configuration["DBInfo:ConnectionString"]));
+            services.AddDbContext<YelpContext>(options => options.UseNpgsql(Configuration["PostGresInfo:ConnectionString"]));
             services.Configure<GoogleMapSettings>(Configuration.GetSection("GoogleMapsAPI"));
         }
 

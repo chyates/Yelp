@@ -73,16 +73,28 @@ namespace yelp.Controllers
                     if (category == "Name")
                     {
                         List<Business> NameSearch = _context.Businesses.Where(b => b.Name.ToLower().Contains(search.ToLower())).ToList();
+                        if(NameSearch.Count < 1)
+                        {
+                            ViewBag.NullSearch = "Sorry, there are no businesses matching your search terms. Try again?";
+                        }
                         return View(NameSearch);
                     }
                     if (category == "City")
                     {
                         List<Business> CitySearch = _context.Businesses.Where(b => b.City.ToLower().Contains(search.ToLower())).ToList();
+                        if(CitySearch.Count < 1)
+                        {
+                            ViewBag.NullSearch = "Sorry, there are no businesses matching your search terms. Try again?";
+                        }
                         return View(CitySearch);
                     }
                     if (category == "Category")
                     {
                         List<Business> CategorySearch = _context.Businesses.Where(b => b.Category.Category.ToLower() == search.ToLower()).ToList();
+                        if(CategorySearch.Count < 1)
+                        {
+                            ViewBag.NullSearch = "Sorry, there are no businesses matching your search terms. Try again?";
+                        }
                         return View(CategorySearch);
                     }
                 }

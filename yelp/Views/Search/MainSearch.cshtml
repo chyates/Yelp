@@ -65,6 +65,10 @@
                 <p id="test2" class="text-justify"><a href="/biz/@business.BusinessId">@business.Name</a></p>
             } 
         </div>
+    } 
+    @if(ViewBag.NullSearch != null)
+    {
+        <h3 class="text-center">@ViewBag.NullSearch</h3>
     }
 
 </div>
