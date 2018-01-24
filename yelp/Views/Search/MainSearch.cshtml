@@ -35,16 +35,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-md mx-auto">
+    </div>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
             <div class="panel p-3">
                 <div class="panel-body">
-                    <form class="col-md float-right form-inline">
+                    <form class="col-md form-inline">
                         <div class="row col-md">
-                            <div class="col-md-4">
+                            <div class="col-md">
                                 <div class="form-group row">
                                     <div class="row">
                                         <div class="col-md">
-                                            <input class="btn btn-outline-primary" type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
+                                            <input class="form-control btn btn-outline-primary" type="submit" asp-action="NewBiz" asp-controller="Business" value="Add a business">
                                         </div>
                                     </div>
                                 </div>
@@ -56,20 +58,38 @@
         </div>
     </div>
 
-    @if(Model != null)
-    {
-        <h4 id="test1" class="text-purple">Results</h4>
-        <div class="row">
-            @foreach (var business in Model)
-            {
-                <p id="test2" class="text-justify"><a href="/biz/@business.BusinessId">@business.Name</a></p>
-            } 
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="panel p-3">
+                <div class="panel-body">
+                    <div class="row">
+                    @if(Model != null)
+                    {
+                        @foreach (var business in Model)
+                        {
+                        <div class="col-sm">
+                            <div class="card w-50 card-outline-info">
+                                <img class="img img-fluid card-img-top" src="@business.ImageLink" alt="Card image cap">
+                                <div class="card-block">
+                                    <p class="text-center card-title"><a class="text-indigo" href="/biz/@business.BusinessId">@business.Name</a></p>
+                                    <hr class="mt-2 ">
+                                    <p class="card-text"><span class="h5 text-danger">@business.City, @business.State </span><span>| @business.Phone</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        } 
+                    }
+                    </div>
+                </div>
+            </div>
         </div>
-    } 
-    @if(ViewBag.NullSearch != null)
-    {
-        <h3 class="text-center">@ViewBag.NullSearch</h3>
-    }
+    </div>
+    <div class="row">
+        @if(ViewBag.NullSearch != null)
+        {
+            <h3 class="text-center">@ViewBag.NullSearch</h3>
+        }
+    </div>
 
 </div>
 @Html.Partial("FooterPartial")

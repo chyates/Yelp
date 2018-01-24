@@ -389,6 +389,14 @@ footer.footer {
     color: var(--pink);
 }
 
+.text-indigo {
+    color: var(--indigo);
+}
+
+.text-red {
+    color: var(--red);
+}
+
 .text-brown {
     color: var(--brown);
 }
@@ -512,9 +520,9 @@ border-radius: 0;
     padding: 1rem;
 }
 
-#test2 {
-    padding: 2rem;
-}
+/* #test2 {
+    padding: 4rem;
+} */
 
 #footer-pic {
     width: 30%;

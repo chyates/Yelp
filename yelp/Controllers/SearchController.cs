@@ -72,7 +72,7 @@ namespace yelp.Controllers
                 {
                     if (category == "Name")
                     {
-                        List<Business> NameSearch = _context.Businesses.Where(b => b.Name.ToLower().Contains(search.ToLower())).ToList();
+                        List<Business> NameSearch = _context.Businesses.Where(b => b.Name.ToLower().Contains(search.ToLower())).Include(b => b.Category).Include(b => b.CategoryType).ToList();
                         if(NameSearch.Count < 1)
                         {
                             ViewBag.NullSearch = "Sorry, there are no businesses matching your search terms. Try again?";
