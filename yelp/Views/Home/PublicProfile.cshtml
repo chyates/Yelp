@@ -6,22 +6,36 @@
 
 
 <div id="prof-container" class="container-fluid">
-    <h2>@ViewBag.User.FirstName @ViewBag.User.LastName[0].</h2>
-    <h4>@ViewBag.StateName</h4>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <div id="prof-img-div">
+            <img id="public-prof-img" class="img img-fluid img-thumbnail" alt="User image" src="~/img/donor-icon.png">
 
-    @if(ViewBag.User.Reviews != null)
-    {
-        <h5 class="text-green">Recent reviews:</h5>
-        @foreach (var review in ViewBag.User.Reviews)
-        {
-            <p>"@review.ReviewText"</p>
-            <p>--<a href="/biz/@review.Business.BusinessId">@review.Business.Name</a></p>
-        }
-    }
-    else 
-    {
-        <p>No recent activity</p>
-    }
+                </div>
+                <div>
+            <h2>@ViewBag.User.FirstName @ViewBag.User.LastName[0].</h2>
+            <h4>@ViewBag.StateName</h4>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            @if(ViewBag.User.Reviews != null)
+                {
+                    <h5 class="text-green">Recent reviews:</h5>
+                    @foreach (var review in ViewBag.User.Reviews)
+                    {
+                        <p>"@review.ReviewText"</p>
+                        <p>--<a href="/biz/@review.Business.BusinessId">@review.Business.Name</a></p>
+                    }
+                }
+            else 
+            {
+                <p>No recent activity</p>
+            }
+        </div>
+    </div>
 </div>
 
 @Html.Partial("FooterPartial")

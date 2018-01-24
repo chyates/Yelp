@@ -541,3 +541,23 @@ border-radius: 0;
 #accordion {
     width: 50%;
 }
+
+#biz-pic-carousel {
+    width: 50%;
+    height: 95%;
+}
+
+#public-prof-img {
+    width: 80%;
+    background: none;
+    border: none;
+}
+
+#prof-img-div {
+    width: 100px;
+}
+
+#home-biz-image {
+    width: 90%;
+    height: 85%;
+}

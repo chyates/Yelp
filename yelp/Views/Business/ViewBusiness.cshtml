@@ -48,7 +48,7 @@
                                         @{
                                             if (ViewBag.Biz.ImageLink != null)
                                             {
-                                                <img class="d-block w-100" src="@ViewBag.Biz.ImageLink">
+                                                <img id="biz-pic-carousel" class="d-block w-100" src="@ViewBag.Biz.ImageLink">
                                             }
                                             else
                                             {
@@ -81,12 +81,12 @@
                             </div>
                             <div class="row">
                             @{
-                                if (ViewBag.Reviews != null)
+                                if (ViewBag.Reviews.Count > 0)
                                 {
                                     foreach (var review in ViewBag.Reviews)
                                     {
                                         <div id="review-box" class="card border-secondary mb-4 mx-4 col-md-5">
-                                            <div id="review-header" class="card-header font-weight-bold">@review.user.FirstName @review.user.LastName[0]. yodeled ...</div>
+                                            <div id="review-header" class="card-header font-weight-bold"><a class="text-orange" href="/users/@review.user.UserId/profile">@review.user.FirstName @review.user.LastName[0].</a> yodeled ...</div>
                                             <div class="card-block">
                                                 <p class="card-text">@review.ReviewText</p>
                                                 <h6 class="text-right text-pink">@review.Rating Stars</h6>

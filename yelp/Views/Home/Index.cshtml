@@ -240,7 +240,7 @@
             @foreach(var business in ViewBag.Businesses)
             {
                 <div class="col-md">
-                    <img class="img img-fluid img-thumbnail" src="@business.ImageLink"/><br>
+                    <img id="home-biz-image" class="img img-fluid" src="@business.ImageLink"/>
                     <a class="text-center" href="/biz/@business.BusinessId">@business.Name</a>
                 </div>
             }
